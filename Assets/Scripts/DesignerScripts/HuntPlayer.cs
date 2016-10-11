@@ -10,7 +10,7 @@ public class HuntPlayer : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         agent = GetComponent<NavMeshAgent>();
-        dest = dest = Random.Range(0, points.Length);
+        dest = Random.Range(0, points.Length);
         GoToNextPoint();
 	}
 	
