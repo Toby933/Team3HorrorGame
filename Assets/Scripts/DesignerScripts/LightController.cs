@@ -9,7 +9,7 @@ public class LightController : MonoBehaviour {
     public bool turnsOn = true;
     private bool isOn;
     public float brightness;
-    private float target;
+    private float target = 2;
 
 	// Use this for initialization
 	void Start () {
@@ -44,11 +44,14 @@ public class LightController : MonoBehaviour {
     void Flicker()
     {
         target=UnityEngine.Random.Range(flickerSettings.flickerMin, (brightness * flickerSettings.flickerRate));
-        if (target > brightness)
+        if (target < brightness)
         {
-            target = brightness;
+            lights.intensity = target;
         }
-        lights.intensity = target;
+        else if (target>lights.intensity && lights.intensity < brightness)
+        {
+            lights.intensity += 0.1f;
+        }
     }
 }
 
