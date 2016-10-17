@@ -6,17 +6,18 @@ public class HuntPlayer : MonoBehaviour {
     public Transform[] points;
     public int dest = 0;
     private NavMeshAgent agent;
+    private bool hunting = false;
 
 	// Use this for initialization
 	void Start () {
         agent = GetComponent<NavMeshAgent>();
-        dest = Random.Range(0, points.Length);
-        GoToNextPoint();
+
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (agent.remainingDistance < .05f)
+        if (agent.remainingDistance < .05f && hunting==true)
         {
             GoToNextPoint();
         }
@@ -27,5 +28,11 @@ public class HuntPlayer : MonoBehaviour {
             return;*/
         agent.destination = points[dest].position;
         dest = Random.Range(0, points.Length);
+    }
+    void TurnOn()
+    {
+        hunting = true;
+        dest = Random.Range(0, points.Length);
+        GoToNextPoint();
     }
 }

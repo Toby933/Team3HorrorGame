@@ -13,12 +13,13 @@ public class LightController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        lights = GetComponent<Light>();
-        if (lights == enabled)
+        lights = GetComponentInChildren<Light>();
+        if (lights.isActiveAndEnabled)
         {
             isOn = true;
+            Debug.Log("ON");
         }
-        if (lights != enabled)
+        if (lights.isActiveAndEnabled != true)
         {
             isOn = false;
         }
