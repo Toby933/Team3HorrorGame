@@ -38,6 +38,7 @@ GameObject:
   - 33: {fileID: 33000010596542886}
   - 23: {fileID: 23000014151745410}
   - 64: {fileID: 64000012557883656}
+  - 114: {fileID: 114000011526923144}
   m_Layer: 0
   m_Name: Lights
   m_TagString: Untagged
@@ -126,7 +127,7 @@ Light:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010382032210}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 7
   m_Type: 2
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -154,3 +155,20 @@ Light:
   m_BounceIntensity: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114000011526923144
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012557010528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d86aac56a507ee46b311122b1558ab7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flickerSettings:
+    willFlicker: 0
+    flickerMin: 0
+    flickerRate: 10
+  turnsOn: 1
+  brightness: 0.4
