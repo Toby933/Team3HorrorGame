@@ -54,8 +54,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010731256994}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 5.102, y: 1.027, z: 1.26}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 22.99, y: 1.16, z: 0.15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
   m_Children:
@@ -70,7 +70,7 @@ Transform:
   m_GameObject: {fileID: 1000012054169962}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1.5, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000012220501296}
@@ -133,8 +133,8 @@ Light:
   serializedVersion: 7
   m_Type: 2
   m_Color: {r: 0.22794116, g: 0.22794116, b: 0.22794116, a: 1}
-  m_Intensity: 0.5
-  m_Range: 6
+  m_Intensity: 1.24
+  m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -186,7 +186,7 @@ MonoBehaviour:
     lockCursor: 1
   headBob:
     bobSpeed: 1
-    bobAmount: 0.2
+    bobAmount: 0.1
     transitionSpeed: 10
   bloodSplat:
     bloodTexture: {fileID: 0}
