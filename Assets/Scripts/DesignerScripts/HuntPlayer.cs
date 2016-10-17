@@ -7,9 +7,11 @@ public class HuntPlayer : MonoBehaviour {
     public int dest = 0;
     private NavMeshAgent agent;
     private bool hunting = false;
+    [Tooltip("Delay before creature goes hunting in the dark")]
+    public float timer = 30;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         agent = GetComponent<NavMeshAgent>();
 
 
@@ -17,6 +19,14 @@ public class HuntPlayer : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (timer >= 0)
+        {
+            timer -= Time.deltaTime;
+        }
+        if (timer <= 0)
+        {
+            TurnOn();
+        }
         if (agent.remainingDistance < .05f && hunting==true)
         {
             GoToNextPoint();
@@ -31,8 +41,12 @@ public class HuntPlayer : MonoBehaviour {
     }
     void TurnOn()
     {
-        hunting = true;
-        dest = Random.Range(0, points.Length);
-        GoToNextPoint();
+        if (hunting != true) 
+        {
+            hunting = true;
+
+            dest = Random.Range(0, points.Length);
+            GoToNextPoint();
+        }
     }
 }
