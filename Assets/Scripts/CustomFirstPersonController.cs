@@ -99,7 +99,7 @@ public class CustomFirstPersonController : MonoBehaviour
 
         if(Input.GetMouseButtonDown(1))
         {
-            takeSomeDamage();
+            takeDamage(9);
         }
 
         if(currentHealth < maxHealth)
@@ -119,9 +119,9 @@ public class CustomFirstPersonController : MonoBehaviour
         controller.Move(moveDirection * Time.deltaTime);       
 	}
 
-    public void takeSomeDamage()
+    public void takeDamage(float damage)
     {
-        currentHealth -= 9;
+        currentHealth -= damage;
     }
 
     void OnDrawGizmos()
