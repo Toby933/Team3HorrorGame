@@ -6,17 +6,20 @@ public class LightController : MonoBehaviour {
 
     public FlickerSettings flickerSettings;
     private Light lights;
-    private AudioSource audio;
+    public AudioSource[] buzz;
+    [Tooltip("Whether light will turn on")]
     public bool turnsOn = true;
     private bool isOn;
     private float  range;
+    [Tooltip("Intensity of the light")]
     public float brightness;
     private float target = 2;
+    [Tooltip("Whether range changes with light intensity")]
+    public bool rangeChange = false;
 
-	// Use this for initialization
 	void Start () {
         lights = GetComponentInChildren<Light>();
-        audio = GetComponentInChildren<AudioSource>();
+        buzz = GetComponentsInChildren<AudioSource>();
         if (lights.isActiveAndEnabled)
         {
             isOn = true;
@@ -30,33 +33,37 @@ public class LightController : MonoBehaviour {
         range = lights.range;
 	}
 	
-	// Update is called once per frame
+
 	void Update () {
 	if (isOn && flickerSettings.willFlicker)
         {
                 Flicker();                   
         }
 	}
-    void TurnOn()
+    void TurnOn()//function called by lever/switch connected to object (LeverPull.cs)
     {
         if (turnsOn && (isOn==false))
         {
             lights.enabled = true;
             isOn = true;
-
         }
     }
-    void Flicker()
+    void Flicker()//causes the light to flicker randomly, charge back to brightness over time after flickering;
     {
         target=UnityEngine.Random.Range(flickerSettings.flickerMin, (brightness * flickerSettings.flickerRate));
         if (target < brightness)
         {
-            lights.intensity = target;
+            var sound = buzz[UnityEngine.Random.Range(0, buzz.Length)];
+            sound.Play();
+            lights.intensity = target/10;
         }
         else if (target>lights.intensity && lights.intensity < brightness)
         {
-            lights.intensity += 0.1f;
-            lights.range = range * (lights.intensity/ brightness );
+            lights.intensity += 0.03f;
+            if (rangeChange == true)//changes light range at same rate as intensity, to change the way the effect looks
+            {
+                lights.range = range * (lights.intensity / brightness);
+            }
         }
     }
 }

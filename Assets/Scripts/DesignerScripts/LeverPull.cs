@@ -6,12 +6,10 @@ public class LeverPull : MonoBehaviour {
     private Animator leverpull;
     [Tooltip("Targets of the Trigger")]
     public GameObject[] targets;
-    private AudioSource audio;
+    private AudioSource sound;
 
-
-	// Use this for initialization
 	void Start () {
-        audio = GetComponent<AudioSource>();
+        sound = GetComponent<AudioSource>();
         leverpull = lever.GetComponentInChildren<Animator>();
 	}
 	void OnTriggerStay(Collider other)
@@ -21,14 +19,13 @@ public class LeverPull : MonoBehaviour {
             TurnOn();
         }
     }
-	// Update is called once per frame
 	void Update () {
 	
     }
-    void TurnOn()
+    void TurnOn()//function activates lever animation, goes through gameobject list and sends message to objects
     {
         leverpull.SetTrigger("Activate");
-        audio.Play();
+        sound.Play();
         for (int i = 0; i < targets.Length; i++)
         {
             targets[i].SendMessage("TurnOn", SendMessageOptions.DontRequireReceiver);
