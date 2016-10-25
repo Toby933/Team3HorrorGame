@@ -20,11 +20,11 @@ RenderSettings:
   m_FogDensity: 0.2
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.1397059, g: 0.101697676, b: 0.101697676, a: 1}
+  m_AmbientSkyColor: {r: 0.85294116, g: 0.8090398, b: 0.8090398, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 0.05
-  m_AmbientMode: 3
+  m_AmbientIntensity: 0
+  m_AmbientMode: 0
   m_SkyboxMaterial: {fileID: 2100000, guid: 24c9a8d7e7ac27d448250fdcc7e9362b, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
@@ -32,11 +32,11 @@ RenderSettings:
   m_HaloTexture: {fileID: 0}
   m_SpotCookie: {fileID: 10001, guid: 0000000000000000e000000000000000, type: 0}
   m_DefaultReflectionMode: 0
-  m_DefaultReflectionResolution: 512
+  m_DefaultReflectionResolution: 1024
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 0.007
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 0}
+  m_Sun: {fileID: 1893118126}
   m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 0.007}
 --- !u!157 &3
 LightmapSettings:
@@ -49,7 +49,7 @@ LightmapSettings:
     m_IndirectOutputScale: 1
     m_AlbedoBoost: 1
     m_TemporalCoherenceThreshold: 1
-    m_EnvironmentLightingMode: 1
+    m_EnvironmentLightingMode: 0
     m_EnableBakedLightmaps: 1
     m_EnableRealtimeLightmaps: 1
   m_LightmapEditorSettings:
@@ -28423,13 +28423,14 @@ GameObject:
   m_Component:
   - 4: {fileID: 1893118127}
   - 108: {fileID: 1893118126}
+  - 114: {fileID: 1893118128}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!108 &1893118126
 Light:
   m_ObjectHideFlags: 0
@@ -28471,12 +28472,28 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1893118125}
   m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: -142.7, y: 497, z: 247.2}
+  m_LocalPosition: {x: -144.18, y: 499.49, z: 249.77}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &1893118128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1893118125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 411d43a48869c1942af24f74b199b657, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  randomNumber: 0
+  wait: 0.7
+  mat:
+  - {fileID: 2100000, guid: 24c9a8d7e7ac27d448250fdcc7e9362b, type: 2}
+  - {fileID: 0}
 --- !u!1 &1893159703
 GameObject:
   m_ObjectHideFlags: 0
