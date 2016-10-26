@@ -47,7 +47,8 @@ public class UI_Documents : MonoBehaviour {
         {
             uiTextBottom.text = "";
             uiTextMiddle.text = "";
-            document.SetActive(false);            
+            document.SetActive(false);
+            //pagePutDown.Play();            
         }
     }
     // Update is called once per frame
