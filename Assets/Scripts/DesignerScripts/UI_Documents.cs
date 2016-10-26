@@ -7,6 +7,8 @@ public class UI_Documents : MonoBehaviour {
     public GameObject document;
     public Text uiTextBottom;
     public Text uiTextMiddle;
+    public AudioSource pagePickUp;
+    public AudioSource pagePutDown;
     bool documentOnScreen = false;
 
 	// Use this for initialization
@@ -28,12 +30,14 @@ public class UI_Documents : MonoBehaviour {
             document.SetActive(true);
             documentOnScreen = true;
             uiTextBottom.text = "Press 'E' to close document";
+            pagePickUp.Play();
         }
         else if (documentOnScreen == true && Input.GetKeyDown(KeyCode.E) && other.tag == "Player")
         {
             document.SetActive(false);
             documentOnScreen = false;
             uiTextBottom.text = "";
+            pagePutDown.Play();
         }
     }
 
@@ -43,7 +47,7 @@ public class UI_Documents : MonoBehaviour {
         {
             uiTextBottom.text = "";
             uiTextMiddle.text = "";
-            document.SetActive(false);
+            document.SetActive(false);            
         }
     }
     // Update is called once per frame

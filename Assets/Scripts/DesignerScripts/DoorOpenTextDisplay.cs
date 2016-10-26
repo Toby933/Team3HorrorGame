@@ -30,7 +30,7 @@ public class DoorOpenTextDisplay : MonoBehaviour {
         }
         else if (other.tag == "Player" && doorOpened == false)
         {
-            textBox.text = "Press 'E' to open door";
+            //textBox.text = "Press 'E' to open door";
         }
     }
 
