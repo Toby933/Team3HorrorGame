@@ -8,13 +8,13 @@ public class DoorOpenTextDisplay : MonoBehaviour {
 
     public Text textBox;
     public bool doorOpened = false;
-    private Animator doorOpenClose;
+    private Animator doorOpenClose3;
     AudioSource doorOpenSound;
 
 	// Use this for initialization
 	void Start ()
     {
-        doorOpenClose = GetComponentInParent<Animator>();
+        doorOpenClose3 = GetComponentInParent<Animator>();
         doorOpenSound = GetComponentInParent<AudioSource>();
 	}
 
@@ -41,7 +41,7 @@ public class DoorOpenTextDisplay : MonoBehaviour {
 
     void Open()
     {
-        doorOpenClose.SetTrigger("Activate");
+        doorOpenClose3.SetTrigger("Activate");
     }
 	// Update is called once per frame
 	void Update () {
