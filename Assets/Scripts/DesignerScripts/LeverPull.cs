@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class LeverPull : MonoBehaviour {
     public GameObject lever;
@@ -7,19 +8,30 @@ public class LeverPull : MonoBehaviour {
     [Tooltip("Targets of the Trigger")]
     public GameObject[] targets;
     private AudioSource sound;
-
-	void Start () {
+    public Text textBox;
+    private bool pulled = false;
+    void Start () {
         sound = GetComponent<AudioSource>();
         leverpull = lever.GetComponentInChildren<Animator>();
+//        textBox = FindObjectOfType<Text>();
 	}
 	void OnTriggerStay(Collider other)
     {
+        if (other.tag == "Player" && !pulled)
+        {
+            textBox.text = "Press E to activate";
+        }
         if (other.tag == "Player" && Input.GetKeyDown(KeyCode.E))
         {
             TurnOn();
+            pulled = true;
         }
     }
-	void Update () {
+    void OnTriggerExit(Collider other)
+    {
+        textBox.text = "";
+    }
+    void Update () {
 	
     }
     void TurnOn()//function activates lever animation, goes through gameobject list and sends message to objects
