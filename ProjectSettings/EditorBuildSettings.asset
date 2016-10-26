@@ -4,4 +4,12 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/01_Outside.unity
+  - enabled: 1
+    path: Assets/Scenes/02_Manor.unity
+  - enabled: 1
+    path: Assets/Scenes/03_Wine_Cellar.unity
+  - enabled: 1
+    path: Assets/Scenes/04_Lab.unity
