@@ -31,7 +31,7 @@ public class HeadBobber
     }
 
     // Bobs head, call in update
-    public void BobHead(float speedModifier)
+    public void BobHead(float speedModifier, CustomFirstPersonController player)
     {
         if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0) //moving
         {
@@ -42,6 +42,13 @@ public class HeadBobber
             Vector3 newPosition = new Vector3(Mathf.Cos(timer) * bobAmount, 
                                                 originalCameraPos.y + Mathf.Abs((Mathf.Sin(timer) * bobAmount)), 
                                                 originalCameraPos.z); //abs val of y for a parabolic path
+
+            //Debug.Log(Mathf.Abs(Mathf.Sin(timer)));
+
+            if (Mathf.Abs(Mathf.Sin(timer)) < .1)
+                player.playFootStepAudio();
+
+
             FPCamera.transform.localPosition = newPosition;
         }
         else

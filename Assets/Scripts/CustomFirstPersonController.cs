@@ -12,6 +12,9 @@ public class CustomFirstPersonController : MonoBehaviour
     [Tooltip("Running Speed")]
     public float runSpeed = 12f;
 
+    [Tooltip("Crouch Speed Modifier (0-1)")]
+    public float crouchSpeed = .3f;
+
     [Tooltip("Jump Height")]
     public float jumpHeight = 10f;
 
@@ -39,6 +42,8 @@ public class CustomFirstPersonController : MonoBehaviour
 
     [SerializeField] private BloodSplatter bloodSplat = new BloodSplatter();
 
+    [SerializeField] private AudioClip[] footStepsAudio;
+
     // Boolean to check whether player is running or walking
     private bool isRunning = false;
 
@@ -51,6 +56,14 @@ public class CustomFirstPersonController : MonoBehaviour
     // Reference to first person camera
     private Camera FPCamera;
 
+    private AudioSource audioSource;
+
+    private float stepPauseTimer = 0;
+
+    public AudioClip[] altFootStepAudio = null;
+
+    private float originalHeight;
+
 	// Use this for initialization
 	void Start ()
     {
@@ -60,7 +73,8 @@ public class CustomFirstPersonController : MonoBehaviour
         headBob.SetUp(FPCamera);
         currentStamina = maxStamina;
         currentHealth = maxHealth;
-        
+        originalHeight = controller.height;
+        audioSource = GetComponent<AudioSource>();
     }
 	
 	// Update is called once per frame
@@ -95,6 +109,14 @@ public class CustomFirstPersonController : MonoBehaviour
             {
                 moveDirection.y = jumpHeight;
             }
+
+            if (Input.GetKey("left ctrl"))
+            {
+                controller.height = originalHeight / 2;
+                moveDirection *= crouchSpeed;
+            }
+            else
+                controller.height = originalHeight;
         }
 
         if(Input.GetMouseButtonDown(1))
@@ -110,18 +132,63 @@ public class CustomFirstPersonController : MonoBehaviour
         }
 
         bloodSplat.UpdateCondition(currentHealth / maxHealth);
+        
+        headBob.BobHead(controller.velocity.magnitude, this);
 
-        headBob.BobHead(controller.velocity.magnitude);
-
-        //Debug.Log(controller.velocity.magnitude);
+        if (stepPauseTimer > 0)
+            stepPauseTimer -= Time.deltaTime;
 
         moveDirection.y -= gravity * Time.deltaTime;
-        controller.Move(moveDirection * Time.deltaTime);       
+        controller.Move(moveDirection * Time.deltaTime);        
 	}
 
     public void takeDamage(float damage)
     {
         currentHealth -= damage;
+    }
+
+    // Plays default footstep
+    public void playFootStepAudio()
+    {
+        if (!controller.isGrounded || stepPauseTimer > 0)
+            return;
+
+        stepPauseTimer = .2f;
+
+        if (altFootStepAudio.Length == 0)
+        {
+            int step = Random.Range(1, footStepsAudio.Length);
+            audioSource.clip = footStepsAudio[step];
+            audioSource.PlayOneShot(audioSource.clip);
+
+            footStepsAudio[step] = footStepsAudio[0];
+            footStepsAudio[0] = audioSource.clip;
+        }
+        else
+        {
+            int step = Random.Range(1, altFootStepAudio.Length);
+            audioSource.clip = altFootStepAudio[step];
+            audioSource.PlayOneShot(audioSource.clip);
+
+            altFootStepAudio[step] = altFootStepAudio[0];
+            altFootStepAudio[0] = audioSource.clip;
+        }
+    }
+
+    // Plays custom footsteps
+    public void playFootStepAudio(AudioClip[] footStepsAudio)
+    {
+        if (!controller.isGrounded || stepPauseTimer > 0)
+            return;
+
+        stepPauseTimer = .2f;
+
+        int step = Random.Range(1, footStepsAudio.Length);
+        audioSource.clip = footStepsAudio[step];
+        audioSource.PlayOneShot(audioSource.clip);
+
+        footStepsAudio[step] = footStepsAudio[0];
+        footStepsAudio[0] = audioSource.clip;
     }
 
     void OnDrawGizmos()
