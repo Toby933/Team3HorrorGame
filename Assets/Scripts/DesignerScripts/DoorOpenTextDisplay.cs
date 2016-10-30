@@ -20,7 +20,7 @@ public class DoorOpenTextDisplay : MonoBehaviour {
 
     void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Player" && Input.GetKey(KeyCode.E))
+        if (other.tag == "Player" && Input.GetKey(KeyCode.E) && doorOpened == false)
         {
             doorOpened = true;
             textBox.text = "";
@@ -28,7 +28,7 @@ public class DoorOpenTextDisplay : MonoBehaviour {
             doorOpenSound.Play();
 
         }
-        else if (other.tag == "Player" && doorOpened == false)
+        else if (other.tag == "Player" && doorOpened == true)
         {
             //textBox.text = "Press 'E' to open door";
         }

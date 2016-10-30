@@ -51953,6 +51953,11 @@ Prefab:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 82000012921871002, guid: 30174c8f05760ec46812e1b42fde3914,
+        type: 2}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 7f61209d37ddc3f43b48c4684446b179, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 30174c8f05760ec46812e1b42fde3914, type: 2}
   m_IsPrefabParent: 0
@@ -53183,6 +53188,11 @@ Prefab:
         type: 2}
       propertyPath: m_audioClip
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000014230262336, guid: aec3e08e269eeba4790fc01d91f7c901,
+        type: 2}
+      propertyPath: walkSpeed
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: aec3e08e269eeba4790fc01d91f7c901, type: 2}
@@ -59619,6 +59629,11 @@ Prefab:
     - target: {fileID: 95000010516866852, guid: 7907232a585d12e4787e6c7d8808102a,
         type: 2}
       propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82000012290269252, guid: 7907232a585d12e4787e6c7d8808102a,
+        type: 2}
+      propertyPath: spreadCustomCurve.m_RotationOrder
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
