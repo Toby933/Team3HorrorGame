@@ -4,7 +4,8 @@ using UnityEngine.UI;
 
 
 
-public class DoorOpenTextDisplay : MonoBehaviour {
+public class DoorOpenTextDisplay : MonoBehaviour
+{
 
     public Text textBox;
     public bool doorOpened = false;
