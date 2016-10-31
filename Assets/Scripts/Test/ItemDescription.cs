@@ -28,8 +28,6 @@ public class ItemDescription : MonoBehaviour
         {
             text.text = description;
 
-            if (text == null)
-                Debug.Log("No Text Field Found");
         }
     }
 
