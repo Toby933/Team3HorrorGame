@@ -21,8 +21,7 @@ public class Destroy : MonoBehaviour {
                 Destroy(gameObject);
             else
             {
-                player.takeDamage(100);
-
+                player.takeDamage(30);
             }
         }
             
