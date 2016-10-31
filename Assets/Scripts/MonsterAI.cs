@@ -132,7 +132,7 @@ public class MonsterAI : MonoBehaviour
                             (target.position - head.transform.position).magnitude) / 
                             (target.position - head.transform.position).magnitude;
 
-            Debug.Log(noise);
+            //Debug.Log(noise);
             //Debug.Log(targetCon.velocity.magnitude);
 
             agent.destination = Vector3.Lerp(agent.destination, target.position, noise);
@@ -141,7 +141,7 @@ public class MonsterAI : MonoBehaviour
         if ((target.position - agent.transform.position).magnitude < attackRange)
             attack();
 
-        Debug.Log((target.position - agent.transform.position).magnitude);
+       // Debug.Log((target.position - agent.transform.position).magnitude);
 
         if (swingtimer > 0)
             swingtimer -= Time.deltaTime;
