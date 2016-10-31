@@ -2,15 +2,28 @@
 using System.Collections;
 
 public class SecretDoorOpen : MonoBehaviour {
-    
+    private AudioSource sound;
     private Animator doorOpen;
+    private bool turnedOn=false;
     // Use this for initialization
     void Start () {
-	doorOpen= gameObject.GetComponent<Animator>();
+        sound = GetComponent<AudioSource>();
+        doorOpen = gameObject.GetComponent<Animator>();
     }
 
     void TurnOn()
     {
-        doorOpen.SetTrigger("Activate");
+        if (turnedOn)
+        {
+            sound.Play();
+            doorOpen.SetTrigger("DeActivate");
+        }
+        if (!turnedOn)
+        {
+            sound.Play();
+            doorOpen.SetTrigger("Activate");
+            turnedOn = true;
+        }
+        
     }
     }
