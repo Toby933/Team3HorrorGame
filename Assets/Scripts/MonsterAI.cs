@@ -11,8 +11,12 @@ public class MonsterAI : MonoBehaviour
     public int dest = 0;
     public bool usePatrol = false;
 
+    [Tooltip("Turn on to stop ai from wandering")]
+    public bool wanderOff = false;
+
     private float timer = 30;
     private bool hunting = false;
+
 
 
     [Header("Wander properties")]
@@ -126,42 +130,34 @@ public class MonsterAI : MonoBehaviour
         }
 
         // Listens out to find player when not in vsion
-        if (!playerFound)
+        if (!playerFound && !player.wasCrouching && !player.isJumping)
         {
-            float noise = ((targetCon.velocity.magnitude * auditoryAcuity) - 
-                            (target.position - head.transform.position).magnitude) / 
-                            (target.position - head.transform.position).magnitude;
-
-            //Debug.Log(noise);
-            //Debug.Log(targetCon.velocity.magnitude);
-
-            agent.destination = Vector3.Lerp(agent.destination, target.position, noise);
+            listenForPlayer();
         }
 
         if ((target.position - agent.transform.position).magnitude < attackRange)
             attack();
-
-       // Debug.Log((target.position - agent.transform.position).magnitude);
 
         if (swingtimer > 0)
             swingtimer -= Time.deltaTime;
 
         if (!agent.hasPath && !usePatrol)
             wander();
-
-        //Debug.Log(head.transform.position);
     }
 
     // Wanders aimlessly
     public void wander()
     {
-        displacement = displacement + new Vector3(Random.Range(-1, 1), 0, Random.Range(-1, 1)).normalized * jitter;
+        if (!wanderOff)
+        {
+            displacement = displacement + new Vector3(Random.Range(-1, 1), 0, Random.Range(-1, 1)).normalized * jitter;
 
-        displacement = displacement.normalized * radius;
+            displacement = displacement.normalized * radius;
 
-        Vector3 target = new Vector3(agent.transform.forward.x, agent.transform.forward.y, agent.transform.forward.z) * distance + displacement;
+            Vector3 target = new Vector3(agent.transform.forward.x, agent.transform.forward.y, agent.transform.forward.z) * distance + displacement;
 
-        agent.SetDestination(target);
+            agent.SetDestination(target);
+        }
     }
 
     public void attack()
@@ -174,11 +170,27 @@ public class MonsterAI : MonoBehaviour
         }
     }
 
+    // Uses player velocity determine how much sound is made scaled by monster's auditory acuity
+    // Noise value is reduce by distance from sound source
+    // Lerps monster current destination towards sound location depending on the resulting noise value
+    public void listenForPlayer()
+    {
+        float noise = ((targetCon.velocity.magnitude * auditoryAcuity) -
+                (target.position - head.transform.position).magnitude) /
+                (target.position - head.transform.position).magnitude;
+
+        //Debug.Log(noise);
+        //Debug.Log(targetCon.velocity.magnitude);
+
+        agent.destination = Vector3.Lerp(agent.destination, target.position, noise);
+    }
+
     void GoToNextPoint()
     {
         agent.destination = points[dest].position;
         dest = Random.Range(0, points.Length);
     }
+
     void TurnOn()
     {
         if (hunting != true)
