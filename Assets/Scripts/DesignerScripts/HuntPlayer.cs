@@ -18,7 +18,8 @@ public class HuntPlayer : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
         if (timer >= 0)
         {
             timer -= Time.deltaTime;
