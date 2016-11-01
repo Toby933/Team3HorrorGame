@@ -45,8 +45,5 @@ public class Demo : MonoBehaviour
 			rd.material.SetFloat ("_FloodLevel1", Mathf.Min(m_Wetness * 2f, 1f));
 		}
     }
-	void OnGUI ()
-	{
-		GUI.Box (new Rect (10, 10, 240, 25), "Raindrop Wet Surface Demo");
-	}
+
 }
