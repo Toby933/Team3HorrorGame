@@ -9,29 +9,27 @@ public class DoorOpenTextDisplay : MonoBehaviour
 
     public Text textBox;
     public bool doorOpened = false;
-    private Animator doorOpenClose3;
+    Animator doorOpenClose;
     AudioSource doorOpenSound;
 
 	// Use this for initialization
 	void Start ()
     {
-        doorOpenClose3 = GetComponentInParent<Animator>();
-        doorOpenSound = GetComponentInParent<AudioSource>();
+        doorOpenClose = GetComponent<Animator>();
+        doorOpenSound = GetComponent<AudioSource>();
 	}
 
     void OnTriggerStay(Collider other)
     {
+        textBox.text = "Press 'E' to open door";
         if (other.tag == "Player" && Input.GetKey(KeyCode.E) && doorOpened == false)
         {
             doorOpened = true;
-            textBox.text = "";
             Open();
-            doorOpenSound.Play();
-
         }
         else if (other.tag == "Player" && doorOpened == true)
         {
-            //textBox.text = "Press 'E' to open door";
+            textBox.text = "";
         }
     }
 
@@ -42,7 +40,9 @@ public class DoorOpenTextDisplay : MonoBehaviour
 
     void Open()
     {
-        doorOpenClose3.SetTrigger("Activate");
+        doorOpenSound.Play();
+        doorOpenClose.SetTrigger("Activate");
+        print("Something");
     }
 	// Update is called once per frame
 	void Update () {
