@@ -1,30 +1,43 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
+
 
 public class LeverPull : MonoBehaviour {
     public GameObject lever;
     private Animator leverpull;
     [Tooltip("Targets of the Trigger")]
     public GameObject[] targets;
-
-	// Use this for initialization
-	void Start () {
+    private AudioSource sound;
+    public Text textBox;
+    private bool pulled = false;
+    void Start()
+    {
+        sound = GetComponent<AudioSource>();
+        //textBox = FindObjectOfType<Text>();
         leverpull = lever.GetComponentInChildren<Animator>();
 	}
 	void OnTriggerStay(Collider other)
     {
+        if (other.tag == "Player" && !pulled)
+        {
+            textBox.text = "Press E to activate";
+        }
+
         if (other.tag == "Player" && Input.GetKeyDown(KeyCode.E))
         {
             TurnOn();
+            pulled = true;
         }
     }
-	// Update is called once per frame
-	void Update () {
-	
-    }
-    void TurnOn()
+        void OnTriggerExit(Collider other)
+    {
+            textBox.text = "";
+        }
+    void TurnOn()//function activates lever animation, goes through gameobject list and sends message to objects
     {
         leverpull.SetTrigger("Activate");
+        sound.Play();
         for (int i = 0; i < targets.Length; i++)
         {
             targets[i].SendMessage("TurnOn", SendMessageOptions.DontRequireReceiver);
