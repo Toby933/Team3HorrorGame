@@ -6,8 +6,9 @@ using System.Collections;
 public class Item : ScriptableObject
 {
     public string itemName = "New Item";                                     
-    public Texture2D itemIcon = null;                                         
-    public GameObject itemObject = null;
+    public Texture2D itemIcon = null;
+    [Tooltip("Item prefab for recreating")]                                         
+    public GameObject itemPrefab = null;
     public bool destroyOnUse = false;
     public string itemDescription;
 }

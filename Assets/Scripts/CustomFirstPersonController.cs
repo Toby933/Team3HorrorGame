@@ -42,23 +42,11 @@ public class CustomFirstPersonController : MonoBehaviour
 
     [SerializeField] private BloodSplatter bloodSplat = new BloodSplatter();
 
-    [Header("Audio Properties")]
+    public AudioFunctions audioManager = new AudioFunctions();
 
-    [SerializeField] private AudioClip[] footStepsAudio;
-
-    [HideInInspector] public AudioClip[] altFootStepAudio = null;
-
-    [SerializeField] private AudioClip jumpingAudio;
-
-    [HideInInspector] public AudioClip altJumpingAudio = null;
-
-    [SerializeField] private AudioClip landingAudio;
-
-    [HideInInspector] public AudioClip altLandingAudio = null;
-    
-    [Tooltip("0-1 value")] public float baseJumpingAndLandingVolume = .3f;
-
-
+    [SerializeField]
+    private LookAt lookAt;
+   
     // Boolean to check whether player is running or walking
     private bool isRunning = false;
 
@@ -76,11 +64,7 @@ public class CustomFirstPersonController : MonoBehaviour
     private CharacterController controller;
 
     // Reference to first person camera
-    private Camera FPCamera;
-
-    private AudioSource audioSource;
-
-    private float stepPauseTimer = 0;    
+    private Camera FPCamera;        
 
     private float originalHeight;
 
@@ -94,14 +78,15 @@ public class CustomFirstPersonController : MonoBehaviour
         currentStamina = maxStamina;
         currentHealth = maxHealth;
         originalHeight = controller.height;
-        audioSource = GetComponent<AudioSource>();
-              
+        lookAt.initialise(FPCamera);
+        audioManager.initialise(controller, GetComponent<AudioSource>(), runSpeed);              
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
         mouseLook.LookRotation(transform, FPCamera.transform);
+        lookAt.itemCheck();
 
 	    if(controller.isGrounded)
         {
@@ -123,12 +108,12 @@ public class CustomFirstPersonController : MonoBehaviour
             if (Input.GetButton("Jump") && !isJumping)
             {
                 isJumping = true;
-                playJumpingAudio();           
+                audioManager.playJumpingAudio();           
             }
             else if (isJumping && controller.isGrounded)
             {
                 isJumping = false;
-                playLandingAudio();
+                audioManager.playLandingAudio();
             }
 
             if (Input.GetKey("left ctrl"))
@@ -162,8 +147,8 @@ public class CustomFirstPersonController : MonoBehaviour
 
         bloodSplat.UpdateCondition(currentHealth / maxHealth);      
 
-        if (stepPauseTimer > 0)
-            stepPauseTimer -= Time.deltaTime;
+        if (audioManager.stepPauseTimer > 0)
+            audioManager.stepPauseTimer -= Time.deltaTime;
 	}
 
     // Physics Updates
@@ -231,7 +216,6 @@ public class CustomFirstPersonController : MonoBehaviour
                     moveDirection.z = velocity.z;
                 }
             }
-
         }
 
         if (!controller.isGrounded)
@@ -244,104 +228,6 @@ public class CustomFirstPersonController : MonoBehaviour
     public void takeDamage(float damage)
     {
         currentHealth -= damage;
-    }
-
-    // Plays default footstep
-    public void playFootStepAudio()
-    {
-        // Only plays footstep while player is grounded
-        if (!controller.isGrounded || stepPauseTimer > 0)
-            return;
-
-        stepPauseTimer = .2f;
-
-        // Checks for whether there are alt footsteps audio to play
-        if (altFootStepAudio.Length == 0)
-        {
-            int step = Random.Range(1, footStepsAudio.Length); // Picks random footstep from array to play
-            audioSource.clip = footStepsAudio[step];
-            audioSource.volume = controller.velocity.magnitude / runSpeed; // Scales audio based on current velocity/ max velocity
-            audioSource.PlayOneShot(audioSource.clip);
-
-            footStepsAudio[step] = footStepsAudio[0];
-            footStepsAudio[0] = audioSource.clip;
-        }
-        else
-        {
-            int step = Random.Range(1, altFootStepAudio.Length);
-            audioSource.clip = altFootStepAudio[step];
-            audioSource.volume = controller.velocity.magnitude / runSpeed;
-            audioSource.PlayOneShot(audioSource.clip);
-
-            altFootStepAudio[step] = altFootStepAudio[0];
-            altFootStepAudio[0] = audioSource.clip;
-        }
-    }
-
-    public void playJumpingAudio()
-    {
-        Debug.Log("playing jump");
-        if (altJumpingAudio != null)
-        {
-            audioSource.clip = altJumpingAudio;
-            if (controller.velocity.magnitude / runSpeed > .5f)
-                audioSource.volume = controller.velocity.magnitude / runSpeed;
-            else
-                audioSource.volume = baseJumpingAndLandingVolume;
-            audioSource.PlayOneShot(audioSource.clip);
-            stepPauseTimer = .2f;
-        }
-        else
-        {
-            audioSource.clip = jumpingAudio;
-            if (controller.velocity.magnitude / runSpeed > .5f)
-                audioSource.volume = controller.velocity.magnitude / runSpeed;
-            else
-                audioSource.volume = baseJumpingAndLandingVolume;
-            audioSource.PlayOneShot(audioSource.clip);
-            stepPauseTimer = .2f;
-        }
-    }
-
-    public void playLandingAudio()
-    {
-        Debug.Log("playing land");
-        if (altLandingAudio != null)
-        {
-            audioSource.clip = altLandingAudio;
-            if (controller.velocity.magnitude / runSpeed > .5f)
-                audioSource.volume = controller.velocity.magnitude / runSpeed;
-            else
-                audioSource.volume = baseJumpingAndLandingVolume;
-            audioSource.PlayOneShot(audioSource.clip);
-            stepPauseTimer = .2f;
-        }
-        else
-        {
-            audioSource.clip = landingAudio;
-            if (controller.velocity.magnitude / runSpeed > .5f)
-                audioSource.volume = controller.velocity.magnitude / runSpeed;
-            else
-                audioSource.volume = baseJumpingAndLandingVolume;
-            audioSource.PlayOneShot(audioSource.clip);
-            stepPauseTimer = .2f;
-        }
-    }
-
-    // Plays custom footsteps
-    public void playFootStepAudio(AudioClip[] footStepsAudio)
-    {
-        if (!controller.isGrounded || stepPauseTimer > 0)
-            return;
-
-        stepPauseTimer = .2f;
-
-        int step = Random.Range(1, footStepsAudio.Length);
-        audioSource.clip = footStepsAudio[step];
-        audioSource.PlayOneShot(audioSource.clip);
-
-        footStepsAudio[step] = footStepsAudio[0];
-        footStepsAudio[0] = audioSource.clip;
     }
 
     IEnumerator crouchTransition ()
