@@ -3663,7 +3663,7 @@ Transform:
   m_GameObject: {fileID: 488877773}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 1.866848, y: 1.866847, z: 1.866847}
+  m_LocalScale: {x: 2.0876667, y: 2.0876656, z: 2.0876656}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 1093937298}
@@ -3681,6 +3681,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: 8517ea5cda986784d8ebff15c08d5327, type: 2}
   itemObject: {fileID: 0}
+  action: 1
+  highLightColour: {r: 0, g: 0, b: 0, a: 0}
+  useDefault: 1
   lookedAt: 0
 --- !u!135 &488877776
 SphereCollider:
@@ -5834,7 +5837,7 @@ GameObject:
   - 114: {fileID: 712619229}
   m_Layer: 5
   m_Name: Text
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11404,8 +11407,8 @@ MeshRenderer:
   m_GameObject: {fileID: 1445350225}
   m_Enabled: 1
   m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_MotionVectors: 1
+  m_ReceiveShadows: 0
+  m_MotionVectors: 0
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
@@ -12438,7 +12441,7 @@ Transform:
   m_GameObject: {fileID: 1550266793}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 1.866848, y: 1.866847, z: 1.866847}
+  m_LocalScale: {x: 2.2245786, y: 2.2245774, z: 2.2245774}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 1445350230}
@@ -12456,6 +12459,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: 8517ea5cda986784d8ebff15c08d5327, type: 2}
   itemObject: {fileID: 0}
+  action: 0
+  highLightColour: {r: 0.3808069, g: 0.1649546, b: 0.8308824, a: 0}
+  useDefault: 1
   lookedAt: 0
 --- !u!135 &1550266797
 SphereCollider:
