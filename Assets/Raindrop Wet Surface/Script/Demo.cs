@@ -11,6 +11,9 @@ public class Demo : MonoBehaviour
 	[Range(0f, 1f)] public float m_Wetness = 0.5f;
 	[Range(0f, 1f)] public float m_Rain = 1f;
 	private RenderTexture m_RaindropGenerated;
+
+    private Vector3 nothing = new Vector3(0, 0, 0);
+    private bool lightning;
 	
     void Start ()
 	{
@@ -37,13 +40,20 @@ public class Demo : MonoBehaviour
 		Graphics.Blit (m_RaindropMap, m_RaindropGenerated, m_RaindropMat);
 		for (int i = 0; i < m_RaindropObjects.Length; i++)
 		{
-			Renderer rd = m_RaindropObjects[i].GetComponent<Renderer>();
-			rd.material.SetTexture ("_RippleTex", m_RaindropGenerated);
-			rd.material.SetVector ("_LightPosition", m_Light.transform.position);
-			rd.material.SetFloat ("_WetLevel", m_Wetness * 0.7f);
-			rd.material.SetFloat ("_FloodLevel2", m_Wetness * 2f);
-			rd.material.SetFloat ("_FloodLevel1", Mathf.Min(m_Wetness * 2f, 1f));
-		}
+            Renderer rd = m_RaindropObjects[i].GetComponent<Renderer>();
+            rd.material.SetTexture("_RippleTex", m_RaindropGenerated);
+            rd.material.SetFloat("_WetLevel", m_Wetness * 0.7f);
+            rd.material.SetFloat("_FloodLevel2", m_Wetness * 2f);
+            rd.material.SetFloat("_FloodLevel1", Mathf.Min(m_Wetness * 2f, 1f));
+            if (lightning)
+                rd.material.SetVector("_LightPosition", m_Light.transform.position);
+            else
+                rd.material.SetVector("_LightPosition", nothing);
+        }
     }
 
+    public void lightningFlash(bool lightning)
+    {
+        this.lightning = lightning;
+    }
 }

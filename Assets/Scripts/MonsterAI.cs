@@ -60,8 +60,7 @@ public class MonsterAI : MonoBehaviour
     // Getting player ref
     private CustomFirstPersonController player;
 
-
-   
+    private float stoppingDistance;   
 
     // Use this for initialization
     void Start ()
@@ -73,7 +72,8 @@ public class MonsterAI : MonoBehaviour
         // Converting FOV from deg to rad
         FOV /= 2; // needs to be halved due to how the angle will be calculated
         FOV = FOV / 180 * Mathf.PI; // formula for rad to deg conversion
-
+        stoppingDistance = (agent.radius + targetCon.radius) * 2 + .5f;
+        Debug.Log(stoppingDistance);
 	}
 	
 	// Update is called once per frame
@@ -129,13 +129,18 @@ public class MonsterAI : MonoBehaviour
                 }
         }
 
+        if ((target.position - agent.transform.position).magnitude < stoppingDistance)
+            agent.stoppingDistance = stoppingDistance;
+        else
+            agent.stoppingDistance = 0;        
+
         // Listens out to find player when not in vsion
         if (!playerFound && !player.wasCrouching && !player.isJumping)
         {
             listenForPlayer();
         }
 
-        if ((target.position - agent.transform.position).magnitude < attackRange)
+        if ((target.position - agent.transform.position).magnitude - agent.radius < attackRange && playerFound)
             attack();
 
         if (swingtimer > 0)

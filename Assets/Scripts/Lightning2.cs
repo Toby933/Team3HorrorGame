@@ -15,13 +15,17 @@ public class Lightning2 : MonoBehaviour {
     public float minDelay = 8.0f;
     public float maxDelay = 12.0f;
 
+    private Demo floor;
+
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
         lightComponent = GetComponent<Light>();
         originalSkyExposure = RenderSettings.skybox.GetFloat("_Exposure");
         originalFogColor = RenderSettings.fogColor;
         thunderAudio = GetComponent<AudioSource>();
+        floor = FindObjectOfType<Demo>();
         StartCoroutine(flashLighting());
 	}
 
@@ -29,12 +33,13 @@ public class Lightning2 : MonoBehaviour {
     {
         while (lightningON)
         {
-            Debug.Log("ZAP!");
             lightComponent.enabled = true;
             RenderSettings.skybox.SetFloat("_Exposure", 8.0f);
             RenderSettings.fogColor = lightningFogColor;
+            floor.lightningFlash(true);
             yield return new WaitForSeconds(flashTime);
             lightComponent.enabled = false;
+            floor.lightningFlash(false);
             RenderSettings.skybox.SetFloat("_Exposure", originalSkyExposure);
             RenderSettings.fogColor = originalFogColor;
             thunderAudio.clip = thunderSounds[Random.Range(0, (thunderSounds.Count))];
@@ -45,8 +50,10 @@ public class Lightning2 : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
-	}
+	void Update ()
+    {
+
+    }
 
     void OnDestroy()
     {
