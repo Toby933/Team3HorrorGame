@@ -28,6 +28,7 @@ public class LeverPull : MonoBehaviour {
         {
             TurnOn();
             pulled = true;
+            textBox.text = "";
         }
     }
         void OnTriggerExit(Collider other)

@@ -10,6 +10,7 @@ public class SceneChange : MonoBehaviour {
     {
         if (other.tag == "Player")
         {
+            SceneManager.LoadScene(target);
             if (sendMessage)
             {
                 for (int i = 0; i < targets.Length; i++)
@@ -17,7 +18,7 @@ public class SceneChange : MonoBehaviour {
                     targets[i].SendMessage("TurnOn", SendMessageOptions.DontRequireReceiver);
                 }
             }
-            SceneManager.LoadScene(target);
+            
         }
     }
 	// Use this for initialization
