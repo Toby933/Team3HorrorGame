@@ -52,6 +52,8 @@ public class CustomFirstPersonController : MonoBehaviour
 
     [HideInInspector] public bool isJumping = false;
 
+    private bool wasJumping = true;
+
     private bool isCrouching = false;
 
     // Used to hide crouch motion velocity change from monster so it can't hear crouch transtions
@@ -113,6 +115,7 @@ public class CustomFirstPersonController : MonoBehaviour
             else if (isJumping && controller.isGrounded)
             {
                 isJumping = false;
+                wasJumping = false;
                 audioManager.playLandingAudio();
             }
 
@@ -129,11 +132,14 @@ public class CustomFirstPersonController : MonoBehaviour
             }
         }
 
-        // lazy way to check if player is falling
+        //lazy way to check if player is falling
         if (!controller.isGrounded && moveDirection.y < 0)
+        {
             isJumping = true;
+            wasJumping = true;
+        }
 
-        if(Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1))
         {
             takeDamage(9);
         }
@@ -172,8 +178,9 @@ public class CustomFirstPersonController : MonoBehaviour
                 exhaustedTimer -= Time.deltaTime;
             }
 
-            if (isJumping)
+            if (isJumping && !wasJumping)
             {
+                wasJumping = true;
                 moveDirection.y = jumpHeight;
             }
 
