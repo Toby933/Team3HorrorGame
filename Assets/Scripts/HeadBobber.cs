@@ -46,7 +46,7 @@ public class HeadBobber
             //Debug.Log(Mathf.Abs(Mathf.Sin(timer)));
 
             if (Mathf.Abs(Mathf.Sin(timer)) < .1)
-                player.playFootStepAudio();
+                player.audioManager.playFootStepAudio();
 
 
             FPCamera.transform.localPosition = newPosition;

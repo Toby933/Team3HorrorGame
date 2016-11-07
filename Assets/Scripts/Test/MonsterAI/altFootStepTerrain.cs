@@ -24,13 +24,13 @@ public class altFootStepTerrain : MonoBehaviour
     {
         if(collider.tag == "Player")
         {
-            player.altFootStepAudio = footSteps;
+            player.audioManager.altFootStepAudio = footSteps;
 
             if (jumpSound != null)
-                player.altJumpingAudio = jumpSound;
+                player.audioManager.altJumpingAudio = jumpSound;
 
             if (landSound != null)
-                player.altLandingAudio = landSound;
+                player.audioManager.altLandingAudio = landSound;
         }
     }
 
@@ -38,11 +38,11 @@ public class altFootStepTerrain : MonoBehaviour
     {
         if (collider.tag == "Player")
         {
-            player.altFootStepAudio = new AudioClip[0];
+            player.audioManager.altFootStepAudio = new AudioClip[0];
 
-            player.altJumpingAudio = null;
+            player.audioManager.altJumpingAudio = null;
 
-            player.altLandingAudio = null;
+            player.audioManager.altLandingAudio = null;
         }
                 
     }

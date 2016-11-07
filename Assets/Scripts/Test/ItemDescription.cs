@@ -4,16 +4,19 @@ using UnityEngine.UI;
 
 public class ItemDescription : MonoBehaviour
 {
-    public string description;
+    [HideInInspector] public string description;
+
+    public Text textOutput;
 
     private bool textOnScreen = false;
 
-    private Text text;
+    
 
 	// Use this for initialization
 	void Start ()
     {
-        text = FindObjectOfType<Text>();
+        if(textOutput == null)
+            textOutput = FindObjectOfType<Text>();
 	}
 	
 	// Update is called once per frame
@@ -26,7 +29,7 @@ public class ItemDescription : MonoBehaviour
     {
         if (other.tag == "Player" && Input.GetKeyDown(KeyCode.E))
         {
-            text.text = description;
+            textOutput.text = description;
 
         }
     }
@@ -35,7 +38,7 @@ public class ItemDescription : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            text.text = "";
+            textOutput.text = "";
         }
     }
 }
