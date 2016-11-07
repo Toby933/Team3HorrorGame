@@ -149,6 +149,9 @@ public class CustomFirstPersonController : MonoBehaviour
             currentHealth += (10 * Time.deltaTime);
             if (currentHealth > maxHealth)
                 currentHealth = maxHealth;
+
+            if (currentHealth < 0)
+                currentHealth = 0;
         }
 
         bloodSplat.UpdateCondition(currentHealth / maxHealth);      
