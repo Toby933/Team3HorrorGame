@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 8a95014684184104584e204b2bec154d
-timeCreated: 1478560551
+guid: 2629889f1fc1e5c41a112304b7a6ca23
+timeCreated: 1478482025
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -9,7 +9,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: WallFoyer_CornerOUT_WoodOnly
+    4300000: WallFoyer_CornerIN_WoodOnly
     6400000: //RootNode
     9500000: //RootNode
   materials:
