@@ -11,13 +11,15 @@ public class MonsterAI : MonoBehaviour
     public int dest = 0;
     public bool usePatrol = false;
 
+    public float patrolSpeed = 3.5f;
+    public float chaseSpeed = 5f;
+
     [Tooltip("Turn on to stop ai from wandering")]
     public bool wanderOff = false;
 
     private float timer = 30;
+
     private bool hunting = false;
-
-
 
     [Header("Wander properties")]
     [Tooltip("Controls how much AI can wander")]
@@ -34,7 +36,7 @@ public class MonsterAI : MonoBehaviour
     public float visionRange = 5;
 
     [Tooltip("Field of view in degrees")]
-    public float FOV = 90;
+    public float FOV = 120;
 
     [Header("Auditory properties")]
     [Tooltip("Sensitivity to sound")]
@@ -51,6 +53,14 @@ public class MonsterAI : MonoBehaviour
 
     float swingtimer = 0;
 
+    [Space()]
+    [Tooltip("Need atleast 2, same audio clip is okay")]
+    public AudioClip[] monsterSounds;
+
+    private AudioSource audioSource;
+
+    private float chaseTimer = 0;
+
     // Navmesh Ref
     private NavMeshAgent agent;
     // Used to raycast from head location
@@ -59,13 +69,14 @@ public class MonsterAI : MonoBehaviour
     private CharacterController targetCon;
     // Getting player ref
     private CustomFirstPersonController player;
-
+    // Used to stop monster from pushing player
     private float stoppingDistance;   
 
     // Use this for initialization
     void Start ()
     {
         agent = GetComponent<NavMeshAgent>();
+        audioSource = GetComponent<AudioSource>();
         head = GetComponentInChildren<SphereCollider>();
         targetCon = target.GetComponent<CharacterController>();
         player = target.GetComponent<CustomFirstPersonController>();
@@ -73,7 +84,8 @@ public class MonsterAI : MonoBehaviour
         FOV /= 2; // needs to be halved due to how the angle will be calculated
         FOV = FOV / 180 * Mathf.PI; // formula for rad to deg conversion
         stoppingDistance = (agent.radius + targetCon.radius) * 2 + .5f;
-        Debug.Log(stoppingDistance);
+        agent.speed = patrolSpeed;
+
 	}
 	
 	// Update is called once per frame
@@ -109,7 +121,6 @@ public class MonsterAI : MonoBehaviour
                     if (Mathf.Acos(Vector3.Dot(head.transform.forward.normalized, target.transform.position.normalized)) < FOV)
                     {
                         agent.SetDestination(target.position);                        
-                        Debug.Log("Chasing Player");
                         playerFound = true;
                         break;
                     }
@@ -122,12 +133,23 @@ public class MonsterAI : MonoBehaviour
                     if (Mathf.Acos(Vector3.Dot(head.transform.forward.normalized, target.transform.position.normalized)) < FOV)
                     {
                         agent.SetDestination(target.position);
-                        Debug.Log("Chasing Player");
                         playerFound = true;
                         break;
                     }
                 }
         }
+
+        if(playerFound && chaseTimer <= 0)
+        {
+            playRoar();
+            chaseTimer = 5f;
+        }
+        else if (!playerFound && chaseTimer > 0)
+        {
+            chaseTimer -= Time.deltaTime;
+        }
+
+        Debug.Log(chaseTimer);
 
         if ((target.position - agent.transform.position).magnitude < stoppingDistance)
             agent.stoppingDistance = stoppingDistance;
@@ -148,6 +170,9 @@ public class MonsterAI : MonoBehaviour
 
         if (!agent.hasPath && !usePatrol)
             wander();
+
+        // Adjusts max speed depending on whether player has been seen
+        agent.speed = playerFound ? chaseSpeed : patrolSpeed;
     }
 
     // Wanders aimlessly
@@ -194,6 +219,16 @@ public class MonsterAI : MonoBehaviour
     {
         agent.destination = points[dest].position;
         dest = Random.Range(0, points.Length);
+    }
+
+    void playRoar()
+    {
+        int index = Random.Range(1, monsterSounds.Length);
+        audioSource.clip = monsterSounds[index];
+        audioSource.PlayOneShot(audioSource.clip);
+
+        monsterSounds[index] = monsterSounds[0];
+        monsterSounds[0] = audioSource.clip;
     }
 
     void TurnOn()
