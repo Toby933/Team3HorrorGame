@@ -5,7 +5,7 @@ public class PortraitSwitcher : MonoBehaviour {
 
     public GameObject portraitOriginal;
     public GameObject portraitScary;
-    public AudioSource ambientNoise;
+    public GameObject deactivateObject;
 
 	// Use this for initialization
 	void Start () {
@@ -18,6 +18,7 @@ public class PortraitSwitcher : MonoBehaviour {
         {
             portraitOriginal.SetActive(false);
             portraitScary.SetActive(true);
+            deactivateObject.SetActive(false);
         }
     }
 	
