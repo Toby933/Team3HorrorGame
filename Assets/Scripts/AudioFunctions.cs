@@ -23,6 +23,10 @@ public class AudioFunctions
     [HideInInspector]
     public AudioClip altLandingAudio = null;
 
+    [Tooltip("In order of severity (low to high)")]
+    [SerializeField]
+    private AudioClip[] hurtAudio;
+
     [Tooltip("0-1 value")]
     public float baseJumpingAndLandingVolume = .3f;
 
@@ -139,5 +143,19 @@ public class AudioFunctions
 
         footStepsAudio[step] = footStepsAudio[0];
         footStepsAudio[0] = audioSource.clip;
+    }
+
+    // Plays hurt audio accord to float ranging from 0-1 (0-100%)
+    public void playHurtAudio(float serverity)
+    {
+        if (serverity > 1)
+            serverity = 1;
+
+        int index = (int)Mathf.Floor(hurtAudio.Length * serverity);
+
+        if (index == hurtAudio.Length)
+            index = hurtAudio.Length - 1;
+
+        audioSource.PlayOneShot(hurtAudio[index]);
     }
 }
