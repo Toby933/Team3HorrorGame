@@ -6,7 +6,7 @@ public class LightController : MonoBehaviour {
 
     public FlickerSettings flickerSettings;
     private Light lights;
-    public AudioSource[] buzz;
+    public AudioClip[] buzz;
     [Tooltip("Whether light will turn on")]
     public bool turnsOn = true;
     private bool isOn;
@@ -16,23 +16,30 @@ public class LightController : MonoBehaviour {
     private float target = 2;
     [Tooltip("Whether range changes with light intensity")]
     public bool rangeChange = false;
+    private AudioSource audioSource;
+
+	public Renderer glowyRenderer;
+	Color baseBulbColor;
 
 
     // Use this for initialization
     void Start () {
         lights = GetComponentInChildren<Light>();
-        buzz = GetComponentsInChildren<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
         if (lights.isActiveAndEnabled)
         {
             isOn = true;
             Debug.Log("ON");
         }
-        if (lights.isActiveAndEnabled != true)
-        {
-            isOn = false;
-        }
         lights.intensity = brightness;
         range = lights.range;
+		baseBulbColor = glowyRenderer.material.color;
+		if (lights.isActiveAndEnabled != true)
+		{
+			isOn = false;
+			glowyRenderer.material.color = (baseBulbColor * 0);
+		}
+
     }
 
     // Update is called once per frame
@@ -41,25 +48,41 @@ public class LightController : MonoBehaviour {
         {
                 Flicker();                   
         }
-	}
+/*        if (!flickerSettings.willFlicker && lights.intensity < brightness)// This will make globes warm up over time, not worth the trouble :P
+        {
+            lights.intensity += 0.03f;
+            if (rangeChange == true)//changes light range at same rate as intensity, to change the way the effect looks
+            {
+                lights.range = range * (lights.intensity / brightness);
+            }
+            lights.intensity += Time.deltaTime * 0.01f;
+            glowyRenderer.material.color = (baseBulbColor * lights.intensity * 2);
+        }*/
+    }
     void TurnOn()//function called by lever/switch connected to object (LeverPull.cs)
     {
         if (turnsOn && (isOn==false))
         {
             lights.enabled = true;
+            //lights.intensity = 0; // uncomment if using globes warming over time
             isOn = true;
+			glowyRenderer.material.color =baseBulbColor;
 
         }
+
+
     }
     void Flicker()//causes the light to flicker randomly, charge back to brightness over time after flickering;
     {
         target =UnityEngine.Random.Range(flickerSettings.flickerMin, (brightness * flickerSettings.flickerRate));
         if (target < brightness)
         {
-            var sound = buzz[UnityEngine.Random.Range(0, buzz.Length)];
-            sound.Play();
+            int step = UnityEngine.Random.Range(1, buzz.Length); // Picks random footstep from array to play
+            audioSource.clip = buzz[step];
+            audioSource.PlayOneShot(audioSource.clip);
             lights.intensity = target / 10;
             lights.intensity = target;
+			glowyRenderer.material.color = (baseBulbColor * target*2);
         }
         else if (target>lights.intensity && lights.intensity < brightness)
         {
@@ -69,6 +92,7 @@ public class LightController : MonoBehaviour {
                 lights.range = range * (lights.intensity / brightness);
             }
             lights.intensity += 0.1f;
+			glowyRenderer.material.color = (baseBulbColor * lights.intensity*2);
         }
     }
 }
