@@ -45,13 +45,6 @@ public class LookAt
                 currentFocus = hit.collider.gameObject;
                 hit.collider.gameObject.GetComponentInChildren<ItemScript>().lookedAt = true;
             }
-            //else
-            //{
-            //    currentFocus = hit.collider.gameObject;
-            //    currentFocus.GetComponent<ItemScript>().lookedAt = true;
-            //    Debug.Log(currentFocus);
-            //}
-
 
         }
         else if (currentFocus != null)

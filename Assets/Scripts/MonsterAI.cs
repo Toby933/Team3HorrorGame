@@ -11,13 +11,20 @@ public class MonsterAI : MonoBehaviour
     public int dest = 0;
     public bool usePatrol = false;
 
+    public float patrolSpeed = 3.5f;
+    public float chaseSpeed = 5f;
+
     [Tooltip("Turn on to stop ai from wandering")]
     public bool wanderOff = false;
 
     private float timer = 30;
+
     private bool hunting = false;
 
+    [Tooltip("Value from 0-1 (0-100%)")]
+    public float chanceToStopToListen = .5f;
 
+    public float stopToListenTimer = 5f;
 
     [Header("Wander properties")]
     [Tooltip("Controls how much AI can wander")]
@@ -34,7 +41,7 @@ public class MonsterAI : MonoBehaviour
     public float visionRange = 5;
 
     [Tooltip("Field of view in degrees")]
-    public float FOV = 90;
+    public float FOV = 120;
 
     [Header("Auditory properties")]
     [Tooltip("Sensitivity to sound")]
@@ -51,6 +58,16 @@ public class MonsterAI : MonoBehaviour
 
     float swingtimer = 0;
 
+    [Space()]
+    [Tooltip("Need atleast 2, same audio clip is okay")]
+    public AudioClip[] monsterSounds;
+
+    private AudioSource audioSource;
+
+    private float chaseTimer = 0;
+
+    private bool isStopToSearch = false;
+
     // Navmesh Ref
     private NavMeshAgent agent;
     // Used to raycast from head location
@@ -59,27 +76,29 @@ public class MonsterAI : MonoBehaviour
     private CharacterController targetCon;
     // Getting player ref
     private CustomFirstPersonController player;
-
-
-   
+    // Used to stop monster from pushing player
+    private float stoppingDistance;
 
     // Use this for initialization
     void Start ()
     {
         agent = GetComponent<NavMeshAgent>();
+        audioSource = GetComponent<AudioSource>();
         head = GetComponentInChildren<SphereCollider>();
         targetCon = target.GetComponent<CharacterController>();
         player = target.GetComponent<CustomFirstPersonController>();
         // Converting FOV from deg to rad
         FOV /= 2; // needs to be halved due to how the angle will be calculated
         FOV = FOV / 180 * Mathf.PI; // formula for rad to deg conversion
+        stoppingDistance = (agent.radius + targetCon.radius) * 2 + .5f;
+        agent.speed = patrolSpeed;
 
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-        if(usePatrol && !agent.hasPath)
+        if(usePatrol && !agent.hasPath && !isStopToSearch)
         {
             if (timer >= 0)
             {
@@ -92,8 +111,10 @@ public class MonsterAI : MonoBehaviour
             if (agent.remainingDistance < .05f && hunting == true)
             {
                 GoToNextPoint();
+                if (Random.Range(0, 20) < 20 * chanceToStopToListen)
+                    StartCoroutine(stopToSearch());                
             }
-        }
+        }        
 
         RaycastHit hit;
 
@@ -109,8 +130,8 @@ public class MonsterAI : MonoBehaviour
                     if (Mathf.Acos(Vector3.Dot(head.transform.forward.normalized, target.transform.position.normalized)) < FOV)
                     {
                         agent.SetDestination(target.position);                        
-                        Debug.Log("Chasing Player");
                         playerFound = true;
+                        agent.Resume();
                         break;
                     }
                 }
@@ -122,12 +143,27 @@ public class MonsterAI : MonoBehaviour
                     if (Mathf.Acos(Vector3.Dot(head.transform.forward.normalized, target.transform.position.normalized)) < FOV)
                     {
                         agent.SetDestination(target.position);
-                        Debug.Log("Chasing Player");
                         playerFound = true;
+                        agent.Resume();
                         break;
                     }
                 }
         }
+
+        if(playerFound && chaseTimer <= 0)
+        {
+            playRoar();
+            chaseTimer = 5f;
+        }
+        else if (!playerFound && chaseTimer > 0)
+        {
+            chaseTimer -= Time.deltaTime;
+        }
+
+        if ((target.position - agent.transform.position).magnitude < stoppingDistance)
+            agent.stoppingDistance = stoppingDistance;
+        else
+            agent.stoppingDistance = 0;        
 
         // Listens out to find player when not in vsion
         if (!playerFound && !player.wasCrouching && !player.isJumping)
@@ -135,14 +171,21 @@ public class MonsterAI : MonoBehaviour
             listenForPlayer();
         }
 
-        if ((target.position - agent.transform.position).magnitude < attackRange)
+        if ((target.position - agent.transform.position).magnitude - agent.radius < attackRange && playerFound)
             attack();
 
         if (swingtimer > 0)
             swingtimer -= Time.deltaTime;
 
-        if (!agent.hasPath && !usePatrol)
+        if (!agent.hasPath && !usePatrol && !isStopToSearch)
+        {
             wander();
+            if (Random.Range(0, 20) <  20 * chanceToStopToListen)
+                StartCoroutine(stopToSearch());
+        }            
+
+        // Adjusts max speed depending on whether player has been seen
+        agent.speed = playerFound ? chaseSpeed : patrolSpeed;
     }
 
     // Wanders aimlessly
@@ -181,14 +224,42 @@ public class MonsterAI : MonoBehaviour
 
         //Debug.Log(noise);
         //Debug.Log(targetCon.velocity.magnitude);
-
+ 
         agent.destination = Vector3.Lerp(agent.destination, target.position, noise);
+
+        if (noise > 0)
+            agent.Resume();
+    }
+
+    IEnumerator stopToSearch()
+    {
+        isStopToSearch = true;
+        agent.Stop();
+        auditoryAcuity *= 2;
+        visionRange *= 2;
+        FOV *= 2;
+        yield return new WaitForSeconds(stopToListenTimer);
+        agent.Resume();
+        auditoryAcuity /= 2;
+        visionRange /= 2;
+        FOV /= 2;
+        isStopToSearch = false;
     }
 
     void GoToNextPoint()
     {
         agent.destination = points[dest].position;
         dest = Random.Range(0, points.Length);
+    }
+
+    void playRoar()
+    {
+        int index = Random.Range(1, monsterSounds.Length);
+        audioSource.clip = monsterSounds[index];
+        audioSource.PlayOneShot(audioSource.clip);
+
+        monsterSounds[index] = monsterSounds[0];
+        monsterSounds[0] = audioSource.clip;
     }
 
     void TurnOn()

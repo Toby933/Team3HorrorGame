@@ -15,4 +15,7 @@ MonoBehaviour:
   itemIcon: {fileID: 0}
   itemPrefab: {fileID: 0}
   destroyOnUse: 0
-  itemDescription: 
+  textOutput: {fileID: 0}
+  itemDescription: 'omg....
+
+'

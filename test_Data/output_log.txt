@@ -1,0 +1,625 @@
+Initialize engine version: 5.4.0f3 (a6d8d714de6f)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce GTX 960 (ID=0x1401)
+    Vendor:   NVIDIA
+    VRAM:     1969 MB
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\huy.le\Documents\Team3HorrorGame\test_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\huy.le\Documents\Team3HorrorGame\test_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\huy.le\Documents\Team3HorrorGame\test_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading C:\Users\huy.le\Documents\Team3HorrorGame\test_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: C:\Users\huy.le\Documents\Team3HorrorGame\test_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\huy.le\Documents\Team3HorrorGame\test_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\huy.le\Documents\Team3HorrorGame\test_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\huy.le\Documents\Team3HorrorGame\test_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\huy.le\Documents\Team3HorrorGame\test_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\huy.le\Documents\Team3HorrorGame\test_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+- Completed reload, in  0.035 seconds
+Platform assembly: C:\Users\huy.le\Documents\Team3HorrorGame\test_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\huy.le\Documents\Team3HorrorGame\test_Data\Managed\System.dll (this message is harmless)
+desktop: 1920x1080 60Hz; virtual: 3840x1080 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+The referenced script on this Behaviour (Game Object 'LightningLight') is missing!
+ 
+(Filename:  Line: 1656)
+
+UnloadTime: 0.521065 ms
+Setting up 1 worker threads for Enlighten.
+  Thread -> id: 1b94 -> priority: 1 
+0.352318
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+playing land
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+2.158571
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+playing land
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+2.192586
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+playing land
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+2.873144
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+playing land
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+3.023396
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+playing land
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+3.123537
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+playing land
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+4.724931
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+playing land
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+8.370538
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 1.205676 ms
+
+Unloading 85 unused Assets to reduce memory usage. Loaded Objects now: 14362.
+Total: 10.071685 ms (FindLiveObjects: 0.643359 ms CreateObjectMapping: 0.277647 ms MarkObjects: 1.259216 ms  DeleteObjects: 7.891169 ms)
+
+ON
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+0.1492055
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+Something
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+playing land
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+20.74143
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 11.962558 ms
+
+Unloading 130 unused Assets to reduce memory usage. Loaded Objects now: 13948.
+Total: 1.932417 ms (FindLiveObjects: 0.420421 ms CreateObjectMapping: 0.169982 ms MarkObjects: 0.800176 ms  DeleteObjects: 0.540959 ms)
+
+2.5
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+0.118453
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+playing land
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+7.910274
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+playing land
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+8.176856
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+playing land
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+8.444283
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+playing land
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+8.710797
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+playing land
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+8.877331
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+Unloading 6 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 16.490648 ms
+
+Unloading 45 unused Assets to reduce memory usage. Loaded Objects now: 1765.
+Total: 1.988883 ms (FindLiveObjects: 0.119660 ms CreateObjectMapping: 0.073434 ms MarkObjects: 0.461966 ms  DeleteObjects: 1.332651 ms)
+
+0.1019731
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+IndexOutOfRangeException: Array index is out of range.
+  at AudioFunctions.playFootStepAudio () [0x00000] in <filename unknown>:0 
+  at HeadBobber.BobHead (Single speedModifier, .CustomFirstPersonController player) [0x00000] in <filename unknown>:0 
+  at CustomFirstPersonController.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+playing land
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+2.820497
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+playing land
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+2.986761
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+

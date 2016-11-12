@@ -52,6 +52,8 @@ public class CustomFirstPersonController : MonoBehaviour
 
     [HideInInspector] public bool isJumping = false;
 
+    private bool wasJumping = true;
+
     private bool isCrouching = false;
 
     // Used to hide crouch motion velocity change from monster so it can't hear crouch transtions
@@ -67,6 +69,8 @@ public class CustomFirstPersonController : MonoBehaviour
     private Camera FPCamera;        
 
     private float originalHeight;
+
+    private float fallDistance = 0;
 
 	// Use this for initialization
 	void Start ()
@@ -92,7 +96,7 @@ public class CustomFirstPersonController : MonoBehaviour
         {
             moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
             moveDirection = transform.TransformDirection(moveDirection);
-
+                        
             if (Input.GetKey("left shift") && 
                 currentStamina > 0 && 
                 moveDirection.magnitude > 0 &&
@@ -113,7 +117,9 @@ public class CustomFirstPersonController : MonoBehaviour
             else if (isJumping && controller.isGrounded)
             {
                 isJumping = false;
-                audioManager.playLandingAudio();
+                wasJumping = false;
+                if (fallDistance > .35f)
+                    audioManager.playLandingAudio();
             }
 
             if (Input.GetKey("left ctrl"))
@@ -122,18 +128,29 @@ public class CustomFirstPersonController : MonoBehaviour
                     StartCoroutine(crouchTransition());
                 isCrouching = true;                
             }
-            else if(isCrouching)
+            else if(isCrouching && canStand())
             {
                 isCrouching = false;
                 StartCoroutine(crouchTransition());
             }
+
+            if (fallDistance > 0)
+                fallDistance = 0;
         }
 
-        // lazy way to check if player is falling
-        if (!controller.isGrounded && moveDirection.y < 0)
-            isJumping = true;
+        if(!controller.isGrounded)
+            fallDistance += Time.deltaTime;
 
-        if(Input.GetMouseButtonDown(1))
+        //lazy way to check if player is falling
+        if (!controller.isGrounded && moveDirection.y < 0)
+        {
+            isJumping = true;
+            wasJumping = true;
+        }
+
+        //Debug.Log(moveDirection.y);
+
+        if (Input.GetMouseButtonDown(1))
         {
             takeDamage(9);
         }
@@ -143,6 +160,9 @@ public class CustomFirstPersonController : MonoBehaviour
             currentHealth += (10 * Time.deltaTime);
             if (currentHealth > maxHealth)
                 currentHealth = maxHealth;
+
+            if (currentHealth < 0)
+                currentHealth = 0;
         }
 
         bloodSplat.UpdateCondition(currentHealth / maxHealth);      
@@ -172,8 +192,9 @@ public class CustomFirstPersonController : MonoBehaviour
                 exhaustedTimer -= Time.deltaTime;
             }
 
-            if (isJumping)
+            if (isJumping && !wasJumping)
             {
+                wasJumping = true;
                 moveDirection.y = jumpHeight;
             }
 
@@ -228,6 +249,9 @@ public class CustomFirstPersonController : MonoBehaviour
     public void takeDamage(float damage)
     {
         currentHealth -= damage;
+
+        // plays different sound according to damage taken in regards to % of max health
+        audioManager.playHurtAudio(damage / maxHealth);
     }
 
     IEnumerator crouchTransition ()
@@ -235,6 +259,13 @@ public class CustomFirstPersonController : MonoBehaviour
         wasCrouching = true;
         yield return new WaitForSeconds(.5f);
         wasCrouching = false;
+    }
+
+    bool canStand()
+    {
+        RaycastHit hit;
+
+        return !Physics.SphereCast(transform.position, controller.radius, transform.up, out hit, controller.height / 2 + .2f);        
     }
 
     void OnDrawGizmos()
