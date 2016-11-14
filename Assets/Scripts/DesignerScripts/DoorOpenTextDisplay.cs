@@ -11,6 +11,7 @@ public class DoorOpenTextDisplay : MonoBehaviour
     public bool doorOpened = false;
     Animator doorOpenClose;
     AudioSource doorOpenSound;
+    public Item requiredItem;
 
 	// Use this for initialization
 	void Start ()
@@ -22,7 +23,7 @@ public class DoorOpenTextDisplay : MonoBehaviour
     void OnTriggerStay(Collider other)
     {
         textBox.text = "Press 'E' to open door";
-        if (other.tag == "Player" && Input.GetKey(KeyCode.E) && doorOpened == false)
+        if (other.tag == "Player" && Input.GetKey(KeyCode.E) && doorOpened == false && other.GetComponent<CustomFirstPersonController>().inventory.Contains(requiredItem))
         {
             doorOpened = true;
             Open();
