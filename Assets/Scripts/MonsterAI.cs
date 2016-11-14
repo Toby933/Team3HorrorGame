@@ -17,6 +17,9 @@ public class MonsterAI : MonoBehaviour
     [Tooltip("Turn on to stop ai from wandering")]
     public bool wanderOff = false;
 
+    [Tooltip("Enable/Disable monster functionality")]
+    public bool isDiabled = false;
+
     private float timer = 30;
 
     private bool hunting = false;
@@ -102,117 +105,120 @@ public class MonsterAI : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        if(usePatrol && !agent.hasPath && !isStopToSearch)
+        if (!isDiabled)
         {
-            if (timer >= 0)
+            if (usePatrol && !agent.hasPath && !isStopToSearch)
             {
-                timer -= Time.deltaTime;
+                if (timer >= 0)
+                {
+                    timer -= Time.deltaTime;
+                }
+                if (timer <= 0)
+                {
+                    TurnOn();
+                }
+                if (agent.remainingDistance < .05f && hunting == true)
+                {
+                    GoToNextPoint();
+                    if (Random.Range(0, 20) < 20 * chanceToStopToListen)
+                        StartCoroutine(stopToSearch());
+                }
             }
-            if (timer <= 0)
+
+            RaycastHit hit;
+
+            bool playerFound = false;
+
+            // Casting 10 rays at player to see if in line of sight
+            for (int i = 0; i < 5; ++i)
             {
-                TurnOn();
+                if (Physics.Raycast(head.transform.position, Quaternion.Euler(0, -25 * (i / 5), 0) * (target.position - head.transform.position), out hit, visionRange))
+                {
+                    //Debug.DrawRay(head.transform.position, Quaternion.Euler(0, -25 * (i / 5), 0) * (target.position - head.transform.position));
+                    //Debug.Log(hit.collider.tag);
+                    if (hit.collider.tag == "Player")
+                    {
+                        //Debug.Log(Mathf.Acos(Vector3.Dot(head.transform.forward.normalized, target.transform.position.normalized)));
+                        Vector3 headLocation = head.transform.forward.normalized;
+                        // Debug.Log(headLocation);
+                        Vector3 playerLocation = target.transform.position;
+                        // Debug.Log(playerLocation);
+                        playerLocation.y = 0;
+                        //  Debug.Log(playerLocation);
+
+                        // Finding angle between monster's forward facing direction and player
+                        if (Mathf.Acos(Vector3.Dot(headLocation, playerLocation.normalized)) < FOV)
+                        {
+                            agent.SetDestination(target.position);
+                            playerFound = true;
+                            agent.Resume();
+                            break;
+                        }
+                    }
+                }
+                if (Physics.Raycast(head.transform.position, Quaternion.Euler(0, 25 * (i / 5), 0) * (target.position - head.transform.position), out hit, visionRange))
+                {
+                    //Debug.DrawRay(head.transform.position, Quaternion.Euler(0, -25 * (i / 5), 0) * (target.position - head.transform.position));
+                    if (hit.collider.tag == "Player")
+                    {
+                        //Debug.Log(Mathf.Acos(Vector3.Dot(head.transform.forward.normalized, target.transform.position.normalized)));
+                        Vector3 headLocation = head.transform.forward.normalized;
+                        Vector3 playerLocation = target.transform.position;
+                        playerLocation.y = 0;
+
+                        // Finding angle between monster's forward facing direction and player
+                        if (Mathf.Acos(Vector3.Dot(headLocation, playerLocation.normalized)) < FOV)
+                        {
+                            agent.SetDestination(target.position);
+                            playerFound = true;
+                            agent.Resume();
+                            break;
+                        }
+                    }
+                }
             }
-            if (agent.remainingDistance < .05f && hunting == true)
+
+            if (playerFound && chaseTimer <= 0)
             {
-                GoToNextPoint();
+                playRoar();
+                chaseTimer = 5f;
+            }
+            else if (!playerFound && chaseTimer > 0)
+            {
+                chaseTimer -= Time.deltaTime;
+            }
+
+            if ((target.position - agent.transform.position).magnitude < stoppingDistance)
+                agent.stoppingDistance = stoppingDistance;
+            else
+                agent.stoppingDistance = 0;
+
+            // Listens out to find player when not in vsion
+            if (!playerFound && !player.wasCrouching && !player.isJumping)
+            {
+                listenForPlayer();
+            }
+
+            if ((target.position - agent.transform.position).magnitude - agent.radius < attackRange && playerFound)
+                attack();
+
+            if (swingtimer > 0)
+                swingtimer -= Time.deltaTime;
+
+            if (!agent.hasPath && !usePatrol && !isStopToSearch)
+            {
+                wander();
                 if (Random.Range(0, 20) < 20 * chanceToStopToListen)
-                    StartCoroutine(stopToSearch());                
+                    StartCoroutine(stopToSearch());
             }
-        }        
 
-        RaycastHit hit;
+            // Adjusts max speed depending on whether player has been seen
 
-        bool playerFound = false;
+            if (isStopToSearch)
+                Debug.Log("Stopping to search" + count++);
 
-        // Casting 10 rays at player to see if in line of sight
-        for (int i = 0; i < 5; ++i)
-        {
-            if (Physics.Raycast(head.transform.position, Quaternion.Euler(0, -25 * (i / 5), 0) * (target.position - head.transform.position), out hit, visionRange))
-            {
-                //Debug.DrawRay(head.transform.position, Quaternion.Euler(0, -25 * (i / 5), 0) * (target.position - head.transform.position));
-                //Debug.Log(hit.collider.tag);
-                if (hit.collider.tag == "Player")
-                {
-                    //Debug.Log(Mathf.Acos(Vector3.Dot(head.transform.forward.normalized, target.transform.position.normalized)));
-                    Vector3 headLocation = head.transform.forward.normalized;
-                   // Debug.Log(headLocation);
-                    Vector3 playerLocation = target.transform.position;
-                   // Debug.Log(playerLocation);
-                    playerLocation.y = 0;
-                  //  Debug.Log(playerLocation);
-                    
-                    // Finding angle between monster's forward facing direction and player
-                    if (Mathf.Acos(Vector3.Dot(headLocation, playerLocation.normalized)) < FOV)
-                    {
-                        agent.SetDestination(target.position);
-                        playerFound = true;
-                        agent.Resume();
-                        break;
-                    }
-                }
-            }
-            if (Physics.Raycast(head.transform.position, Quaternion.Euler(0, 25 * (i / 5), 0) * (target.position - head.transform.position), out hit, visionRange))
-            {
-                //Debug.DrawRay(head.transform.position, Quaternion.Euler(0, -25 * (i / 5), 0) * (target.position - head.transform.position));
-                if (hit.collider.tag == "Player")
-                {
-                    //Debug.Log(Mathf.Acos(Vector3.Dot(head.transform.forward.normalized, target.transform.position.normalized)));
-                    Vector3 headLocation = head.transform.forward.normalized;
-                    Vector3 playerLocation = target.transform.position;
-                    playerLocation.y = 0;
-
-                    // Finding angle between monster's forward facing direction and player
-                    if (Mathf.Acos(Vector3.Dot(headLocation, playerLocation.normalized)) < FOV)
-                    {
-                        agent.SetDestination(target.position);
-                        playerFound = true;
-                        agent.Resume();
-                        break;
-                    }
-                }
-            }
+            agent.speed = playerFound ? chaseSpeed : patrolSpeed;
         }
-
-        if (playerFound && chaseTimer <= 0)
-        {
-            playRoar();
-            chaseTimer = 5f;
-        }
-        else if (!playerFound && chaseTimer > 0)
-        {
-            chaseTimer -= Time.deltaTime;
-        }
-
-        if ((target.position - agent.transform.position).magnitude < stoppingDistance)
-            agent.stoppingDistance = stoppingDistance;
-        else
-            agent.stoppingDistance = 0;        
-
-        // Listens out to find player when not in vsion
-        if (!playerFound && !player.wasCrouching && !player.isJumping)
-        {
-            listenForPlayer();
-        }
-
-        if ((target.position - agent.transform.position).magnitude - agent.radius < attackRange && playerFound)
-            attack();
-
-        if (swingtimer > 0)
-            swingtimer -= Time.deltaTime;
-
-        if (!agent.hasPath && !usePatrol && !isStopToSearch)
-        {
-            wander();
-            if (Random.Range(0, 20) <  20 * chanceToStopToListen)
-                StartCoroutine(stopToSearch());
-        }
-
-        // Adjusts max speed depending on whether player has been seen
-
-        if (isStopToSearch)
-            Debug.Log("Stopping to search" + count++);
-
-        agent.speed = playerFound ? chaseSpeed : patrolSpeed;
     }
 
     // Wanders aimlessly
