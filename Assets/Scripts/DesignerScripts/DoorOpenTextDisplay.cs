@@ -12,6 +12,7 @@ public class DoorOpenTextDisplay : MonoBehaviour
     Animator doorOpenClose;
     AudioSource doorOpenSound;
     public Item requiredItem;
+    public AudioSource doorLockedSound;
 
 	// Use this for initialization
 	void Start ()
@@ -22,11 +23,16 @@ public class DoorOpenTextDisplay : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
-        textBox.text = "Press 'E' to open door";
+        
         if (other.tag == "Player" && Input.GetKey(KeyCode.E) && doorOpened == false && other.GetComponent<CustomFirstPersonController>().inventory.Contains(requiredItem))
         {
-            doorOpened = true;
+            doorOpened = true;            
             Open();
+        }
+        else if (other.tag == "Player" && Input.GetKey(KeyCode.E) && doorOpened == false)
+        {
+            textBox.text = "It's locked";
+            doorLockedSound.Play();
         }
         else if (other.tag == "Player" && doorOpened == true)
         {
