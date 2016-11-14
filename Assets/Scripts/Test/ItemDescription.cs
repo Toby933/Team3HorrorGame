@@ -16,7 +16,15 @@ public class ItemDescription : MonoBehaviour
 	void Start ()
     {
         if(textOutput == null)
-            textOutput = FindObjectOfType<Text>();
+        {
+            foreach (Text t in FindObjectsOfType<Text>())
+            {
+                if (t.tag == "Item")
+                {
+                    textOutput = t;
+                }
+            }
+        }
 	}
 	
 	// Update is called once per frame

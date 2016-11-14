@@ -72,8 +72,12 @@ public class CustomFirstPersonController : MonoBehaviour
 
     private float fallDistance = 0;
 
-	// Use this for initialization
-	void Start ()
+    private bool isPaused = false;
+
+    private Canvas pauseMenu;
+
+    // Use this for initialization
+    void Start ()
     {
         controller = GetComponent<CharacterController>();
         FPCamera = Camera.main;
@@ -83,13 +87,29 @@ public class CustomFirstPersonController : MonoBehaviour
         currentHealth = maxHealth;
         originalHeight = controller.height;
         lookAt.initialise(FPCamera);
-        audioManager.initialise(controller, GetComponent<AudioSource>(), runSpeed);              
+        audioManager.initialise(controller, GetComponent<AudioSource>(), runSpeed);
+        foreach (Canvas c in FindObjectsOfType<Canvas>())
+        {
+            if (c.tag == "PauseMenu")
+            {
+                pauseMenu = c;
+                pauseMenu.enabled = false;
+            }
+
+        }
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        mouseLook.LookRotation(transform, FPCamera.transform);
+        if (!isPaused)
+            mouseLook.LookRotation(transform, FPCamera.transform);
+
+        if (!isPaused && Input.GetKeyDown(KeyCode.Escape))
+            Pause();
+        else if (isPaused && Input.GetKeyDown(KeyCode.Escape))
+            Unpause();
+
         lookAt.itemCheck();
 
 	    if(controller.isGrounded)
@@ -271,5 +291,24 @@ public class CustomFirstPersonController : MonoBehaviour
     void OnDrawGizmos()
     {
         Gizmos.DrawLine(transform.position, transform.position + transform.forward * 5);
+    }
+
+    void Pause()
+    {
+        isPaused = true;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        pauseMenu.enabled = true;
+        Time.timeScale = 0;
+    }
+    
+    public void Unpause()
+    {
+        Debug.Log("unPausing");
+        isPaused = false;           
+        Time.timeScale = 1;
+        Cursor.visible = false;
+        pauseMenu.enabled = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 }

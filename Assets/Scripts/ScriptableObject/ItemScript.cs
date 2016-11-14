@@ -39,7 +39,7 @@ public class ItemScript : MonoBehaviour
             foreach (Text t in FindObjectsOfType<Text>())
             {
                 if (t.tag == "Item")
-                    item.textOutput = FindObjectOfType<Text>();
+                    item.textOutput = t;
             }
         }
 
