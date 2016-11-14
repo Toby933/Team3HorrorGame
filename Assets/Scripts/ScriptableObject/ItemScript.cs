@@ -21,10 +21,14 @@ public class ItemScript : MonoBehaviour
 
     private Color defaultColour;
 
+    private bool wasLookedAt = false;
+
     [HideInInspector]
     public bool lookedAt = false;    
 
     Renderer itemRenderer;
+
+    public float displayTime = 2f;
 
 	// Use this for initialization
 	void Start ()
@@ -59,21 +63,21 @@ public class ItemScript : MonoBehaviour
     {
         if(other.tag == "Player" && lookedAt)
         {
-            if (Input.GetKey(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.E))
             {
                 switch (action)
                 {
                     case Action.PickUp:
+                        StartCoroutine(pickUpText());
                         itemActions.PickUp(other, this);
                         break;
                     case Action.DisplayText:
+                        wasLookedAt = true;
                         itemActions.DisplayText(this);
                         break;
                     case Action.DoNothing:
                         break;
                 }
-
-
                 //parent.gameObject.SetActive(false);
             }
         }
@@ -97,12 +101,29 @@ public class ItemScript : MonoBehaviour
         {
             itemRenderer.material.color = defaultColour;
             itemRenderer.material.SetColor("_EmissionColor", new Color(0, 0, 0, 0));
-            if (action == Action.DisplayText)
+            if (action == Action.DisplayText && wasLookedAt)
+            {
                 itemActions.ClearText(this);
+                wasLookedAt = false;
+            }
         }
         else
         {
             itemRenderer.material.SetColor("_EmissionColor", highLightColour);
         }
+    }
+
+    void setText(string text)
+    {
+        item.textOutput.text = text;
+    }
+
+    IEnumerator pickUpText()
+    {
+        setText(System.String.Format("{0} obtained", item.itemName));
+        Debug.Log(item.textOutput);
+        yield return new WaitForSeconds(displayTime);
+        Debug.Log("pickUpText end");
+        setText("");
     }
 }
