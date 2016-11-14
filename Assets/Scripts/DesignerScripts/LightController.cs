@@ -77,7 +77,7 @@ public class LightController : MonoBehaviour {
         target =UnityEngine.Random.Range(flickerSettings.flickerMin, (brightness * flickerSettings.flickerRate));
         if (target < brightness)
         {
-            int step = UnityEngine.Random.Range(1, buzz.Length); // Picks random footstep from array to play
+            int step = UnityEngine.Random.Range(0, buzz.Length); // Picks random footstep from array to play
             audioSource.clip = buzz[step];
             audioSource.PlayOneShot(audioSource.clip);
             lights.intensity = target / 10;
