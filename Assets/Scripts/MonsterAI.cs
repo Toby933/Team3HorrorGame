@@ -49,7 +49,7 @@ public class MonsterAI : MonoBehaviour
 
     [Header("Attack properties")]
     [Tooltip("How much damage is done each hit")]
-    public float damage = 90;
+    public float damage = 120;
 
     public float swingTime = 3;
 
@@ -78,6 +78,10 @@ public class MonsterAI : MonoBehaviour
     private CustomFirstPersonController player;
     // Used to stop monster from pushing player
     private float stoppingDistance;
+
+    private int count = 0;
+
+
 
     // Use this for initialization
     void Start ()
@@ -123,24 +127,22 @@ public class MonsterAI : MonoBehaviour
         // Casting 10 rays at player to see if in line of sight
         for (int i = 0; i < 5; ++i)
         {
-            if (Physics.Raycast(head.transform.position, Quaternion.Euler(0, -25 * (i / 5), 0) * (target.position - head.transform.position), out hit, visionRange)) 
+            if (Physics.Raycast(head.transform.position, Quaternion.Euler(0, -25 * (i / 5), 0) * (target.position - head.transform.position), out hit, visionRange))
+            {
+                //Debug.DrawRay(head.transform.position, Quaternion.Euler(0, -25 * (i / 5), 0) * (target.position - head.transform.position));
+                //Debug.Log(hit.collider.tag);
                 if (hit.collider.tag == "Player")
                 {
+                    //Debug.Log(Mathf.Acos(Vector3.Dot(head.transform.forward.normalized, target.transform.position.normalized)));
+                    Vector3 headLocation = head.transform.forward.normalized;
+                   // Debug.Log(headLocation);
+                    Vector3 playerLocation = target.transform.position;
+                   // Debug.Log(playerLocation);
+                    playerLocation.y = 0;
+                  //  Debug.Log(playerLocation);
+                    
                     // Finding angle between monster's forward facing direction and player
-                    if (Mathf.Acos(Vector3.Dot(head.transform.forward.normalized, target.transform.position.normalized)) < FOV)
-                    {
-                        agent.SetDestination(target.position);                        
-                        playerFound = true;
-                        agent.Resume();
-                        break;
-                    }
-                }
-
-            if (Physics.Raycast(head.transform.position, Quaternion.Euler(0, 25 * (i / 5), 0) * (target.position - head.transform.position), out hit, visionRange))
-                if (hit.collider.tag == "Player")
-                {
-                    // Finding angle between monster's forward facing direction and player
-                    if (Mathf.Acos(Vector3.Dot(head.transform.forward.normalized, target.transform.position.normalized)) < FOV)
+                    if (Mathf.Acos(Vector3.Dot(headLocation, playerLocation.normalized)) < FOV)
                     {
                         agent.SetDestination(target.position);
                         playerFound = true;
@@ -148,9 +150,30 @@ public class MonsterAI : MonoBehaviour
                         break;
                     }
                 }
+            }
+            if (Physics.Raycast(head.transform.position, Quaternion.Euler(0, 25 * (i / 5), 0) * (target.position - head.transform.position), out hit, visionRange))
+            {
+                //Debug.DrawRay(head.transform.position, Quaternion.Euler(0, -25 * (i / 5), 0) * (target.position - head.transform.position));
+                if (hit.collider.tag == "Player")
+                {
+                    //Debug.Log(Mathf.Acos(Vector3.Dot(head.transform.forward.normalized, target.transform.position.normalized)));
+                    Vector3 headLocation = head.transform.forward.normalized;
+                    Vector3 playerLocation = target.transform.position;
+                    playerLocation.y = 0;
+
+                    // Finding angle between monster's forward facing direction and player
+                    if (Mathf.Acos(Vector3.Dot(headLocation, playerLocation.normalized)) < FOV)
+                    {
+                        agent.SetDestination(target.position);
+                        playerFound = true;
+                        agent.Resume();
+                        break;
+                    }
+                }
+            }
         }
 
-        if(playerFound && chaseTimer <= 0)
+        if (playerFound && chaseTimer <= 0)
         {
             playRoar();
             chaseTimer = 5f;
@@ -182,9 +205,13 @@ public class MonsterAI : MonoBehaviour
             wander();
             if (Random.Range(0, 20) <  20 * chanceToStopToListen)
                 StartCoroutine(stopToSearch());
-        }            
+        }
 
         // Adjusts max speed depending on whether player has been seen
+
+        if (isStopToSearch)
+            Debug.Log("Stopping to search" + count++);
+
         agent.speed = playerFound ? chaseSpeed : patrolSpeed;
     }
 
