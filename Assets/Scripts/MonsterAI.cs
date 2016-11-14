@@ -134,20 +134,20 @@ public class MonsterAI : MonoBehaviour
             {
                 if (Physics.Raycast(head.transform.position, Quaternion.Euler(0, -25 * (i / 5), 0) * (target.position - head.transform.position), out hit, visionRange))
                 {
-                    //Debug.DrawRay(head.transform.position, Quaternion.Euler(0, -25 * (i / 5), 0) * (target.position - head.transform.position));
+                    Debug.DrawRay(head.transform.position, Vector3.forward);
                     //Debug.Log(hit.collider.tag);
                     if (hit.collider.tag == "Player")
                     {
-                        //Debug.Log(Mathf.Acos(Vector3.Dot(head.transform.forward.normalized, target.transform.position.normalized)));
-                        Vector3 headLocation = head.transform.forward.normalized;
-                        // Debug.Log(headLocation);
-                        Vector3 playerLocation = target.transform.position;
-                        // Debug.Log(playerLocation);
-                        playerLocation.y = 0;
-                        //  Debug.Log(playerLocation);
+                        Vector3 headDirection = head.transform.forward;
+                        headDirection.y = 0;
+                        headDirection.Normalize();
+
+                        Vector3 playerDirection = (target.transform.position - head.transform.position);
+                        playerDirection.y = 0;
+                        playerDirection.Normalize();
 
                         // Finding angle between monster's forward facing direction and player
-                        if (Mathf.Acos(Vector3.Dot(headLocation, playerLocation.normalized)) < FOV)
+                        if (Mathf.Acos(Vector3.Dot(headDirection, playerDirection)) < FOV)
                         {
                             agent.SetDestination(target.position);
                             playerFound = true;
@@ -161,13 +161,16 @@ public class MonsterAI : MonoBehaviour
                     //Debug.DrawRay(head.transform.position, Quaternion.Euler(0, -25 * (i / 5), 0) * (target.position - head.transform.position));
                     if (hit.collider.tag == "Player")
                     {
-                        //Debug.Log(Mathf.Acos(Vector3.Dot(head.transform.forward.normalized, target.transform.position.normalized)));
-                        Vector3 headLocation = head.transform.forward.normalized;
-                        Vector3 playerLocation = target.transform.position;
-                        playerLocation.y = 0;
+                        Vector3 headDirection = head.transform.forward;
+                        headDirection.y = 0;
+                        headDirection.Normalize();
+
+                        Vector3 playerDirection = (target.transform.position - head.transform.position);
+                        playerDirection.y = 0;
+                        playerDirection.Normalize();
 
                         // Finding angle between monster's forward facing direction and player
-                        if (Mathf.Acos(Vector3.Dot(headLocation, playerLocation.normalized)) < FOV)
+                        if (Mathf.Acos(Vector3.Dot(headDirection, playerDirection)) < FOV)
                         {
                             agent.SetDestination(target.position);
                             playerFound = true;
