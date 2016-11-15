@@ -16,7 +16,7 @@ public class ThrowSomething : MonoBehaviour {
     {
         if (other.gameObject.tag== "Player")
         {
-            other.gameObject.SendMessage("takeDamage(1)", SendMessageOptions.DontRequireReceiver);
+            other.gameObject.SendMessage("takeDamage(10)", SendMessageOptions.DontRequireReceiver);
             Debug.Log("PEWPEWPEW");
         }
         //Stick code to play sound here when it collides with something, deepending on object.
