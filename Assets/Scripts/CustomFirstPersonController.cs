@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityStandardAssets.Characters.FirstPerson;
 using System.Collections.Generic;
+using InControl;
 
 
 public class CustomFirstPersonController : MonoBehaviour
@@ -76,6 +77,8 @@ public class CustomFirstPersonController : MonoBehaviour
 
     private Canvas pauseMenu;
 
+    private InputDevice device;
+
     // Use this for initialization
     void Start ()
     {
@@ -102,12 +105,14 @@ public class CustomFirstPersonController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
+        device = InputManager.ActiveDevice;
+
         if (!isPaused)
             mouseLook.LookRotation(transform, FPCamera.transform);
 
-        if (!isPaused && Input.GetKeyDown(KeyCode.Escape))
+        if (!isPaused && (Input.GetKeyDown(KeyCode.Escape)||device.MenuWasPressed))
             Pause();
-        else if (isPaused && Input.GetKeyDown(KeyCode.Escape))
+        else if (isPaused && (Input.GetKeyDown(KeyCode.Escape) || device.MenuWasPressed))
             Unpause();
 
         lookAt.itemCheck();
@@ -116,11 +121,11 @@ public class CustomFirstPersonController : MonoBehaviour
         {
             moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
             moveDirection = transform.TransformDirection(moveDirection);
-                        
-            if (Input.GetKey("left shift") && 
-                currentStamina > 0 && 
+
+            if ((Input.GetKey("left shift") || device.LeftStickButton) &&
+                currentStamina > 0 &&
                 moveDirection.magnitude > 0 &&
-                exhaustedTimer <= 0)
+                exhaustedTimer <= 0) 
             {
                 isRunning = true;
             }
@@ -129,7 +134,7 @@ public class CustomFirstPersonController : MonoBehaviour
                 isRunning = false;                
             }
 
-            if (Input.GetButton("Jump") && !isJumping)
+            if ((Input.GetButton("Jump") || device.Action1) && !isJumping)
             {
                 isJumping = true;
                 audioManager.playJumpingAudio();           
@@ -142,7 +147,7 @@ public class CustomFirstPersonController : MonoBehaviour
                     audioManager.playLandingAudio();
             }
 
-            if (Input.GetKey("left ctrl"))
+            if (Input.GetKey("left ctrl") || device.RightStickButton)
             {
                 if(!isCrouching)
                     StartCoroutine(crouchTransition());
@@ -226,11 +231,6 @@ public class CustomFirstPersonController : MonoBehaviour
             else if(!isCrouching)
                 controller.height = originalHeight;
 
-            if(isCrouching)
-                headBob.BobHead(controller.velocity.magnitude * 2f, this);            
-            else
-                headBob.BobHead(controller.velocity.magnitude, this);
-
             if (isRunning)
             {
                 Vector3 velocity = moveDirection;
@@ -257,13 +257,21 @@ public class CustomFirstPersonController : MonoBehaviour
                     moveDirection.z = velocity.z;
                 }
             }
+
+            if (isCrouching && moveDirection.magnitude > .3f)
+                headBob.BobHead(controller.velocity.magnitude * 2f, this);
+            else if (moveDirection.magnitude > .3f)
+                headBob.BobHead(controller.velocity.magnitude, this);
         }
 
         if (!controller.isGrounded)
             moveDirection.y -= gravity * Time.deltaTime;
 
 
-        controller.Move(moveDirection * Time.deltaTime);
+        if (moveDirection.magnitude > 0.3f)
+            controller.Move(moveDirection * Time.deltaTime);
+
+            
     }
 
     public void takeDamage(float damage)
