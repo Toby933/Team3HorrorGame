@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityStandardAssets.Characters.FirstPerson;
+using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using InControl;
 
@@ -194,6 +195,11 @@ public class CustomFirstPersonController : MonoBehaviour
 
         if (audioManager.stepPauseTimer > 0)
             audioManager.stepPauseTimer -= Time.deltaTime;
+
+        if (currentHealth == 0)
+        {            
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
 	}
 
     // Physics Updates

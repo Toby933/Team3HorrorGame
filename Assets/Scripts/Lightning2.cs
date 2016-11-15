@@ -36,10 +36,12 @@ public class Lightning2 : MonoBehaviour {
             lightComponent.enabled = true;
             RenderSettings.skybox.SetFloat("_Exposure", 8.0f);
             RenderSettings.fogColor = lightningFogColor;
+            RenderSettings.skybox.SetFloat("_SunSize", .015f);
             floor.lightningFlash(true);
             yield return new WaitForSeconds(flashTime);
             lightComponent.enabled = false;
             floor.lightningFlash(false);
+            RenderSettings.skybox.SetFloat("_SunSize", .033f);
             RenderSettings.skybox.SetFloat("_Exposure", originalSkyExposure);
             RenderSettings.fogColor = originalFogColor;
             thunderAudio.clip = thunderSounds[Random.Range(0, (thunderSounds.Count))];
