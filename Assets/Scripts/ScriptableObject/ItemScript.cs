@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using InControl;
 
 public class ItemScript : MonoBehaviour
 {
@@ -29,6 +30,8 @@ public class ItemScript : MonoBehaviour
     Renderer itemRenderer;
 
     public float displayTime = 2f;
+
+    private InputDevice device;
 
 	// Use this for initialization
 	void Start ()
@@ -63,7 +66,7 @@ public class ItemScript : MonoBehaviour
     {
         if(other.tag == "Player" && lookedAt)
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.E) || device.Action2)
             {
                 switch (action)
                 {
@@ -97,6 +100,8 @@ public class ItemScript : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
+        device = InputManager.ActiveDevice;
+
         if (!lookedAt)
         {
             itemRenderer.material.color = defaultColour;
