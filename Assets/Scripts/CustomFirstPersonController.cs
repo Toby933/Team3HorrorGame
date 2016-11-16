@@ -317,7 +317,8 @@ public class CustomFirstPersonController : MonoBehaviour
         isPaused = false;           
         Time.timeScale = 1;
         Cursor.visible = false;
-        pauseMenu.enabled = false;
         Cursor.lockState = CursorLockMode.Locked;
+        pauseMenu.enabled = false;
+        
     }
 }
