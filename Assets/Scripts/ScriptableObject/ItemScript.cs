@@ -43,12 +43,10 @@ public class ItemScript : MonoBehaviour
 
         if (item.textOutput == null && action == Action.DisplayText)
         {
-            foreach (Text t in FindObjectsOfType<Text>())
-            {
-                if (t.tag == "Item")
-                    item.textOutput = t;
-            }
+            item.textOutput = GameObject.FindGameObjectWithTag("CentreTextDisplay").GetComponent<Text>();
         }
+
+        
 
         itemObject.tag = "Item";
 

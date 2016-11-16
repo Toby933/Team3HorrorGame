@@ -81,11 +81,7 @@ public class MonsterAI : MonoBehaviour
     private CustomFirstPersonController player;
     // Used to stop monster from pushing player
     private float stoppingDistance;
-
-    private int count = 0;
-
-
-
+    
     // Use this for initialization
     void Start ()
     {
@@ -134,8 +130,6 @@ public class MonsterAI : MonoBehaviour
             {
                 if (Physics.Raycast(head.transform.position, Quaternion.Euler(0, -25 * (i / 5), 0) * (target.position - head.transform.position), out hit, visionRange))
                 {
-                    Debug.DrawRay(head.transform.position, Vector3.forward);
-                    //Debug.Log(hit.collider.tag);
                     if (hit.collider.tag == "Player")
                     {
                         Vector3 headDirection = head.transform.forward;
@@ -158,7 +152,6 @@ public class MonsterAI : MonoBehaviour
                 }
                 if (Physics.Raycast(head.transform.position, Quaternion.Euler(0, 25 * (i / 5), 0) * (target.position - head.transform.position), out hit, visionRange))
                 {
-                    //Debug.DrawRay(head.transform.position, Quaternion.Euler(0, -25 * (i / 5), 0) * (target.position - head.transform.position));
                     if (hit.collider.tag == "Player")
                     {
                         Vector3 headDirection = head.transform.forward;
@@ -216,10 +209,6 @@ public class MonsterAI : MonoBehaviour
             }
 
             // Adjusts max speed depending on whether player has been seen
-
-            if (isStopToSearch)
-                Debug.Log("Stopping to search" + count++);
-
             agent.speed = playerFound ? chaseSpeed : patrolSpeed;
         }
     }
@@ -244,8 +233,7 @@ public class MonsterAI : MonoBehaviour
         if (swingtimer <= 0)
         {
             player.takeDamage(damage);
-            swingtimer = swingTime;
-            Debug.Log("Attacked");            
+            swingtimer = swingTime;       
         }
     }
 
@@ -254,12 +242,11 @@ public class MonsterAI : MonoBehaviour
     // Lerps monster current destination towards sound location depending on the resulting noise value
     public void listenForPlayer()
     {
+        // Arbitrary forumla to calculate noise value with sound drop off over distance
         float noise = ((targetCon.velocity.magnitude * auditoryAcuity) -
                 (target.position - head.transform.position).magnitude) /
                 (target.position - head.transform.position).magnitude;
 
-        //Debug.Log(noise);
-        //Debug.Log(targetCon.velocity.magnitude);
  
         agent.destination = Vector3.Lerp(agent.destination, target.position, noise);
 

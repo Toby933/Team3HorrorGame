@@ -92,15 +92,12 @@ public class CustomFirstPersonController : MonoBehaviour
         originalHeight = controller.height;
         lookAt.initialise(FPCamera);
         audioManager.initialise(controller, GetComponent<AudioSource>(), runSpeed);
-        foreach (Canvas c in FindObjectsOfType<Canvas>())
-        {
-            if (c.tag == "PauseMenu")
-            {
-                pauseMenu = c;
-                pauseMenu.enabled = false;
-            }
 
-        }
+        pauseMenu = GameObject.FindGameObjectWithTag("PauseMenu").GetComponent<Canvas>();
+
+        pauseMenu.enabled = false;
+
+        bloodSplat.startUp((GameObject.FindGameObjectWithTag("BloodUI").GetComponent<UnityEngine.UI.Image>()));
     }
 	
 	// Update is called once per frame
@@ -274,10 +271,8 @@ public class CustomFirstPersonController : MonoBehaviour
             moveDirection.y -= gravity * Time.deltaTime;
 
 
-        if (moveDirection.magnitude > 0.3f)
-            controller.Move(moveDirection * Time.deltaTime);
-
-            
+        if (moveDirection.magnitude > 0.3f || wasCrouching)
+            controller.Move(moveDirection * Time.deltaTime);            
     }
 
     public void takeDamage(float damage)

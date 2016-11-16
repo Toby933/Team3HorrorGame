@@ -18,6 +18,11 @@ public class BloodSplatter
 
     private float alphaFade;         
 
+    public void startUp(Image bloodUI)
+    {
+        bloodTexture = bloodUI;
+    }
+
     public void UpdateCondition(float healthCondition)
     {
         if (bloodTexture != null)
