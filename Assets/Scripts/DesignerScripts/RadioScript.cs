@@ -13,10 +13,10 @@ public class RadioScript : MonoBehaviour {
 
     void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Player" && turnedOn)
+        /*if (other.tag == "Player" && turnedOn)
         {
             textBox.text = "Press E to turn off";
-        }
+        }*/
 
         if (other.tag == "Player" && Input.GetKeyDown(KeyCode.E) && turnedOn)
         {
@@ -25,13 +25,13 @@ public class RadioScript : MonoBehaviour {
             textBox.text = "";
         }
     }
-    void OnTriggerExit(Collider other)
+    /*void OnTriggerExit(Collider other)
     {
         if (other.tag == "Player")
         {
             textBox.text = "";
         }
-    }
+    }*/
 
     void Awake()
     {
