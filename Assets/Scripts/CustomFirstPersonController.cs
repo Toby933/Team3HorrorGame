@@ -179,11 +179,10 @@ public class CustomFirstPersonController : MonoBehaviour
             wasJumping = true;
         }
 
-        //Debug.Log(moveDirection.y);
-
         if (Input.GetMouseButtonDown(1))
         {
             takeDamage(9);
+            FindObjectOfType<EndCredit>().playCredits();
         }
 
         if(currentHealth < maxHealth)
@@ -203,7 +202,10 @@ public class CustomFirstPersonController : MonoBehaviour
 
         if (currentHealth == 0 && !reloadingLevel)
         {
-            StartCoroutine(reloadLevel());
+            if (SceneManager.GetActiveScene().name == "04_Lab")
+                FindObjectOfType<EndCredit>().playCredits();
+            else
+                StartCoroutine(reloadLevel());
         }
 	}    
 
@@ -339,5 +341,16 @@ public class CustomFirstPersonController : MonoBehaviour
         textOutput.text = "";
         reloadingLevel = false;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void Exit()
+    {
+        Application.Quit();
+    }
+
+    public void MainMenu()
+    {
+        // TODO
+        //SceneManager.LoadScene("mainMenu");
     }
 }

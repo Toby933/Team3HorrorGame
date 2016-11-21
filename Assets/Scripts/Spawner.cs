@@ -62,13 +62,23 @@ public class Spawner : MonoBehaviour
     [Tooltip("Need atleast 2, same audio clip is okay")]
     public AudioClip[] monsterSounds;
 
-
     // Use this for initialization
     void Start()
     {
-        monster = Instantiate(monsterPrefab) as GameObject;
-        monster.transform.position = transform.position;
-        monster.transform.rotation = transform.rotation;
+    }
+	
+	// Update is called once per frame
+	void Update ()
+    {
+        
+	}
+
+
+    // call FindObjectOfType<Spawner>().spawnMonster(); with spawner prefab in scene to spawn monster
+    // FindObjectOfType<Spawner>().spawnMonster();
+    public void spawnMonster()
+    {
+        monster = Instantiate(monsterPrefab, transform.position, transform.rotation) as GameObject;
         if (!useDefault)
         {
             var monsterScript = monster.GetComponent<MonsterAI>();
@@ -92,15 +102,5 @@ public class Spawner : MonoBehaviour
             monsterScript.attackRange = attackRange;
             monsterScript.monsterSounds = monsterSounds;
         }
-        monster.SetActive(makeActive);
     }
-	
-	// Update is called once per frame
-	void Update ()
-    {
-	    if(makeActive)
-        {
-            monster.SetActive(makeActive);
-        }
-	}
 }
