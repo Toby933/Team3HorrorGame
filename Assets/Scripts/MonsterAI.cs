@@ -85,6 +85,10 @@ public class MonsterAI : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
+        if(target == null)
+        {
+            target = GameObject.FindGameObjectWithTag("Player").transform;
+        }
         agent = GetComponent<NavMeshAgent>();
         audioSource = GetComponent<AudioSource>();
         head = GetComponentInChildren<SphereCollider>();
