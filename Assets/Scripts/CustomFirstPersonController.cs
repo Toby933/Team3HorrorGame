@@ -77,7 +77,7 @@ public class CustomFirstPersonController : MonoBehaviour
 
     private bool isPaused = false;
 
-    public Canvas pauseMenu;
+    Canvas pauseMenu;
 
     private InputDevice device;
 
@@ -207,6 +207,11 @@ public class CustomFirstPersonController : MonoBehaviour
             else
                 StartCoroutine(reloadLevel());
         }
+
+        if (exhaustedTimer > 0)
+            audioManager.playExhausted();
+        else if (currentStamina >= maxStamina)
+            audioManager.stopExhausted();
 	}    
 
     // Physics Updates
@@ -350,7 +355,6 @@ public class CustomFirstPersonController : MonoBehaviour
 
     public void MainMenu()
     {
-        // TODO
-        //SceneManager.LoadScene("mainMenu");
+        SceneManager.LoadScene("UI Splash");
     }
 }

@@ -27,6 +27,9 @@ public class AudioFunctions
     [SerializeField]
     private AudioClip[] hurtAudio;
 
+    [SerializeField]
+    AudioClip outOfBreathAudio;
+
     [Tooltip("0-1 value")]
     public float baseJumpingAndLandingVolume = .3f;
 
@@ -34,7 +37,7 @@ public class AudioFunctions
 
     private CharacterController controller;
 
-    private AudioSource audioSource;
+    private AudioSource[] audioSource;
 
     private float runSpeed;
 
@@ -42,7 +45,7 @@ public class AudioFunctions
     {
         this.controller = controller;
 
-        this.audioSource = audioSource;
+        this.audioSource = controller.GetComponentsInParent<AudioSource>();
 
         this.runSpeed = runSpeed;
     }
@@ -60,71 +63,82 @@ public class AudioFunctions
         if (altFootStepAudio.Length == 0)
         {
             int step = Random.Range(1, footStepsAudio.Length); // Picks random footstep from array to play
-            audioSource.clip = footStepsAudio[step];
-            audioSource.volume = controller.velocity.magnitude / runSpeed; // Scales audio based on current velocity/ max velocity
-            audioSource.PlayOneShot(audioSource.clip);
+            audioSource[0].clip = footStepsAudio[step];
+            audioSource[0].volume = controller.velocity.magnitude / runSpeed; // Scales audio based on current velocity/ max velocity
+            audioSource[0].PlayOneShot(audioSource[0].clip);
 
             footStepsAudio[step] = footStepsAudio[0];
-            footStepsAudio[0] = audioSource.clip;
+            footStepsAudio[0] = audioSource[0].clip;
         }
         else
         {
             int step = Random.Range(1, altFootStepAudio.Length);
-            audioSource.clip = altFootStepAudio[step];
-            audioSource.volume = controller.velocity.magnitude / runSpeed;
-            audioSource.PlayOneShot(audioSource.clip);
+            audioSource[0].clip = altFootStepAudio[step];
+            audioSource[0].volume = controller.velocity.magnitude / runSpeed;
+            audioSource[0].PlayOneShot(audioSource[0].clip);
 
             altFootStepAudio[step] = altFootStepAudio[0];
-            altFootStepAudio[0] = audioSource.clip;
+            altFootStepAudio[0] = audioSource[0].clip;
         }
+    }
+
+    public void playExhausted()
+    {
+        audioSource[1].clip = outOfBreathAudio;
+        if (!audioSource[1].isPlaying)
+            audioSource[1].Play();
+    }
+
+    public void stopExhausted()
+    {
+        if (audioSource[1].isPlaying)
+            audioSource[1].Stop();
     }
 
     public void playJumpingAudio()
     {
-        Debug.Log("playing jump");
         if (altJumpingAudio != null)
         {
-            audioSource.clip = altJumpingAudio;
+            audioSource[0].clip = altJumpingAudio;
             if (controller.velocity.magnitude / runSpeed > .5f)
-                audioSource.volume = controller.velocity.magnitude / runSpeed;
+                audioSource[0].volume = controller.velocity.magnitude / runSpeed;
             else
-                audioSource.volume = baseJumpingAndLandingVolume;
-            audioSource.PlayOneShot(audioSource.clip);
+                audioSource[0].volume = baseJumpingAndLandingVolume;
+            audioSource[0].PlayOneShot(audioSource[0].clip);
             stepPauseTimer = .2f;
         }
         else
         {
-            audioSource.clip = jumpingAudio;
+            audioSource[0].clip = jumpingAudio;
             if (controller.velocity.magnitude / runSpeed > .5f)
-                audioSource.volume = controller.velocity.magnitude / runSpeed;
+                audioSource[0].volume = controller.velocity.magnitude / runSpeed;
             else
-                audioSource.volume = baseJumpingAndLandingVolume;
-            audioSource.PlayOneShot(audioSource.clip);
+                audioSource[0].volume = baseJumpingAndLandingVolume;
+            audioSource[0].PlayOneShot(audioSource[0].clip);
             stepPauseTimer = .2f;
         }
     }
 
     public void playLandingAudio()
     {
-        Debug.Log("playing land");
         if (altLandingAudio != null)
         {
-            audioSource.clip = altLandingAudio;
+            audioSource[0].clip = altLandingAudio;
             if (controller.velocity.magnitude / runSpeed > .5f)
-                audioSource.volume = controller.velocity.magnitude / runSpeed;
+                audioSource[0].volume = controller.velocity.magnitude / runSpeed;
             else
-                audioSource.volume = baseJumpingAndLandingVolume;
-            audioSource.PlayOneShot(audioSource.clip);
+                audioSource[0].volume = baseJumpingAndLandingVolume;
+            audioSource[0].PlayOneShot(audioSource[0].clip);
             stepPauseTimer = .2f;
         }
         else
         {
-            audioSource.clip = landingAudio;
+            audioSource[0].clip = landingAudio;
             if (controller.velocity.magnitude / runSpeed > .5f)
-                audioSource.volume = controller.velocity.magnitude / runSpeed;
+                audioSource[0].volume = controller.velocity.magnitude / runSpeed;
             else
-                audioSource.volume = baseJumpingAndLandingVolume;
-            audioSource.PlayOneShot(audioSource.clip);
+                audioSource[0].volume = baseJumpingAndLandingVolume;
+            audioSource[0].PlayOneShot(audioSource[0].clip);
             stepPauseTimer = .2f;
         }
     }
@@ -138,11 +152,11 @@ public class AudioFunctions
         stepPauseTimer = .2f;
 
         int step = Random.Range(1, footStepsAudio.Length);
-        audioSource.clip = footStepsAudio[step];
-        audioSource.PlayOneShot(audioSource.clip);
+        audioSource[0].clip = footStepsAudio[step];
+        audioSource[0].PlayOneShot(audioSource[0].clip);
 
         footStepsAudio[step] = footStepsAudio[0];
-        footStepsAudio[0] = audioSource.clip;
+        footStepsAudio[0] = audioSource[0].clip;
     }
 
     // Plays hurt audio accord to float ranging from 0-1 (0-100%)
@@ -156,6 +170,6 @@ public class AudioFunctions
         if (index == hurtAudio.Length)
             index = hurtAudio.Length - 1;
 
-        audioSource.PlayOneShot(hurtAudio[index]);
+        audioSource[1].PlayOneShot(hurtAudio[index]);
     }
 }
