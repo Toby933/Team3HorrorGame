@@ -182,7 +182,6 @@ public class CustomFirstPersonController : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             takeDamage(9);
-            FindObjectOfType<EndCredit>().playCredits();
         }
 
         if(currentHealth < maxHealth)
@@ -202,9 +201,7 @@ public class CustomFirstPersonController : MonoBehaviour
 
         if (currentHealth == 0 && !reloadingLevel)
         {
-            if (SceneManager.GetActiveScene().name == "04_Lab")
-                FindObjectOfType<EndCredit>().playCredits();
-            else
+
                 StartCoroutine(reloadLevel());
         }
 	}    
@@ -337,10 +334,19 @@ public class CustomFirstPersonController : MonoBehaviour
         textOutput.fontSize = 150;
         textOutput.color = Color.red;
         textOutput.text = "You Died";
-        yield return new WaitForSeconds(3);
-        textOutput.text = "";
-        reloadingLevel = false;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        if (SceneManager.GetActiveScene().name == "04_Lab")
+        {
+            FindObjectOfType<EndCredit>().playCredits();
+        }
+        else
+        {
+            yield return new WaitForSeconds(3);
+            textOutput.text = "";
+            reloadingLevel = false;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+        
+        
     }
 
     public void Exit()
