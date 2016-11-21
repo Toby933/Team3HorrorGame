@@ -16,7 +16,7 @@ public class DoorOpenSceneChange : MonoBehaviour {
     {
         if (other.tag == "Player")
         {
-            textAppear.text = "Press E to open door";
+            textAppear.text = "Press E to Enter Mansion";
         }
     }
 
