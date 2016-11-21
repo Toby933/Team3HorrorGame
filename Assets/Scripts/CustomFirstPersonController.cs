@@ -4,6 +4,7 @@ using UnityStandardAssets.Characters.FirstPerson;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using InControl;
+using UnityEngine.UI;
 
 
 public class CustomFirstPersonController : MonoBehaviour
@@ -76,9 +77,13 @@ public class CustomFirstPersonController : MonoBehaviour
 
     private bool isPaused = false;
 
-    private Canvas pauseMenu;
+    public Canvas pauseMenu;
 
     private InputDevice device;
+
+    private bool reloadingLevel = false;
+
+    private Text textOutput;
 
     // Use this for initialization
     void Start ()
@@ -93,9 +98,12 @@ public class CustomFirstPersonController : MonoBehaviour
         lookAt.initialise(FPCamera);
         audioManager.initialise(controller, GetComponent<AudioSource>(), runSpeed);
 
-        pauseMenu = GameObject.FindGameObjectWithTag("PauseMenu").GetComponent<Canvas>();
+        pauseMenu = GameObject.FindGameObjectWithTag("PauseMenu").GetComponentInChildren<Canvas>();
 
+        Debug.Log(GameObject.FindGameObjectWithTag("PauseMenu").name);
         pauseMenu.enabled = false;
+
+        textOutput = GameObject.FindGameObjectWithTag("CentreTextDisplay").GetComponent<Text>();
 
         bloodSplat.startUp((GameObject.FindGameObjectWithTag("BloodUI").GetComponent<UnityEngine.UI.Image>()));
     }
@@ -105,7 +113,7 @@ public class CustomFirstPersonController : MonoBehaviour
     {
         device = InputManager.ActiveDevice;
 
-        if (!isPaused)
+        if (!isPaused && !reloadingLevel)
             mouseLook.LookRotation(transform, FPCamera.transform);
 
         if (!isPaused && (Input.GetKeyDown(KeyCode.Escape)||device.MenuWasPressed))
@@ -193,11 +201,11 @@ public class CustomFirstPersonController : MonoBehaviour
         if (audioManager.stepPauseTimer > 0)
             audioManager.stepPauseTimer -= Time.deltaTime;
 
-        if (currentHealth == 0)
-        {            
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        if (currentHealth == 0 && !reloadingLevel)
+        {
+            StartCoroutine(reloadLevel());
         }
-	}
+	}    
 
     // Physics Updates
     void FixedUpdate()
@@ -261,9 +269,9 @@ public class CustomFirstPersonController : MonoBehaviour
                 }
             }
 
-            if (isCrouching && moveDirection.magnitude > .3f)
+            if (isCrouching && moveDirection.magnitude > .3f && !reloadingLevel)
                 headBob.BobHead(controller.velocity.magnitude * 2f, this);
-            else if (moveDirection.magnitude > .3f)
+            else if (moveDirection.magnitude > .3f && !reloadingLevel)
                 headBob.BobHead(controller.velocity.magnitude, this);
         }
 
@@ -271,7 +279,7 @@ public class CustomFirstPersonController : MonoBehaviour
             moveDirection.y -= gravity * Time.deltaTime;
 
 
-        if (moveDirection.magnitude > 0.3f || wasCrouching)
+        if ((moveDirection.magnitude > 0.3f || wasCrouching) && !reloadingLevel)
             controller.Move(moveDirection * Time.deltaTime);            
     }
 
@@ -318,7 +326,18 @@ public class CustomFirstPersonController : MonoBehaviour
         Time.timeScale = 1;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        pauseMenu.enabled = false;
-        
+        pauseMenu.enabled = false;        
+    }
+
+    IEnumerator reloadLevel()
+    {
+        reloadingLevel = true;
+        textOutput.fontSize = 150;
+        textOutput.color = Color.red;
+        textOutput.text = "You Died";
+        yield return new WaitForSeconds(3);
+        textOutput.text = "";
+        reloadingLevel = false;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
