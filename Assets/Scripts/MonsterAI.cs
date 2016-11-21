@@ -291,6 +291,10 @@ public class MonsterAI : MonoBehaviour
 
     void TurnOn()
     {
+        Invoke("StartHunting", 5);
+    }
+    void StartHunting()
+    {
         if (hunting != true)
         {
             hunting = true;
