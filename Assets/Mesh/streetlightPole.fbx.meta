@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: cbde322ca8aee0b4fb9e8f343a7ef930
-timeCreated: 1479692530
+guid: 8e42946cf1bc4004a918e6c7cc2c734d
+timeCreated: 1479701318
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -9,7 +9,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: car
+    4300000: streetlight
     6400000: //RootNode
     9500000: //RootNode
   materials:
