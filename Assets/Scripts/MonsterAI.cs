@@ -20,7 +20,7 @@ public class MonsterAI : MonoBehaviour
     [Tooltip("Enable/Disable monster functionality")]
     public bool isDiabled = false;
 
-    private float timer = 30;
+    public float timer = 30;
 
     private bool hunting = false;
 
