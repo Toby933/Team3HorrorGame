@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using InControl;
 
 public class DoorJammed : MonoBehaviour {
 
     public Text jammedText;
     public AudioSource jammedAudio;
+    InputDevice device;
 
 	// Use this for initialization
 	void Start () {
@@ -14,7 +16,8 @@ public class DoorJammed : MonoBehaviour {
 
     void OnTriggerStay (Collider other)
     {
-        if (other.tag == "Player" && Input.GetKeyDown(KeyCode.E))
+        device = InputManager.ActiveDevice;
+        if (other.tag == "Player" && (Input.GetKey(KeyCode.E) || device.Action2))
         {
             jammedText.text = "It's jammed";
             jammedAudio.Play();

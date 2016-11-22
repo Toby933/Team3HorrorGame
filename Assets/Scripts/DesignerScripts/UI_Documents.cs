@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using InControl;
 
 public class UI_Documents : MonoBehaviour {
 
@@ -10,6 +11,8 @@ public class UI_Documents : MonoBehaviour {
     public AudioSource pagePickUp;
     public AudioSource pagePutDown;
     bool documentOnScreen = false;
+    InputDevice device;
+
 
 	// Use this for initialization
 	void Start ()
@@ -25,7 +28,9 @@ public class UI_Documents : MonoBehaviour {
     }
     void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Player" && Input.GetKeyDown(KeyCode.E) && !documentOnScreen)
+        device = InputManager.ActiveDevice;
+
+        if (other.tag == "Player" && (Input.GetKey(KeyCode.E) || device.Action2) && !documentOnScreen)
         {
             document.SetActive(true);
             documentOnScreen = true;
@@ -33,7 +38,7 @@ public class UI_Documents : MonoBehaviour {
             uiTextBottom.text = "Press 'E' to close document";
             pagePickUp.Play();
         }
-        else if (documentOnScreen == true && Input.GetKeyDown(KeyCode.E) && other.tag == "Player")
+        else if (documentOnScreen == true && (Input.GetKey(KeyCode.E) || device.Action2) && other.tag == "Player")
         {
             document.SetActive(false);
             documentOnScreen = false;

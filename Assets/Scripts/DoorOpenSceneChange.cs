@@ -2,10 +2,13 @@
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using InControl;
 
 public class DoorOpenSceneChange : MonoBehaviour {
 
     public Text textAppear;
+
+    InputDevice device;
 
 	// Use this for initialization
 	void Start () {
@@ -22,7 +25,8 @@ public class DoorOpenSceneChange : MonoBehaviour {
 
     void OnTriggerStay (Collider other)
     {
-        if (other.tag == "Player" && Input.GetKeyDown(KeyCode.E))
+        device = InputManager.ActiveDevice;
+        if (other.tag == "Player" && (Input.GetKey(KeyCode.E) || device.Action2))
         {
             SceneManager.LoadScene("02_Manor");
         }
