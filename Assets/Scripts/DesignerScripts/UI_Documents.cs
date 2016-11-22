@@ -29,6 +29,7 @@ public class UI_Documents : MonoBehaviour {
         {
             document.SetActive(true);
             documentOnScreen = true;
+            uiTextMiddle.text = "";
             uiTextBottom.text = "Press 'E' to close document";
             pagePickUp.Play();
         }
