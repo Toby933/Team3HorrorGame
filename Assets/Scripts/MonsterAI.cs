@@ -71,6 +71,8 @@ public class MonsterAI : MonoBehaviour
 
     private bool isStopToSearch = false;
 
+    private Animator myAnimator;
+
     // Navmesh Ref
     private NavMeshAgent agent;
     // Used to raycast from head location
@@ -89,6 +91,7 @@ public class MonsterAI : MonoBehaviour
         {
             target = GameObject.FindGameObjectWithTag("Player").transform;
         }
+        myAnimator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         audioSource = GetComponent<AudioSource>();
         head = GetComponentInChildren<SphereCollider>();
@@ -100,11 +103,14 @@ public class MonsterAI : MonoBehaviour
         stoppingDistance = (agent.radius + targetCon.radius) * 2 + .5f;
         agent.speed = patrolSpeed;
 
+
 	}
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update()
     {
+        myAnimator.SetFloat("VSpeed" ,Mathf.Abs(Mathf.Clamp01(agent.velocity.magnitude)));// Blends between monster move and monster idle in theory
+
         if (!isDiabled)
         {
             if (usePatrol && !agent.hasPath && !isStopToSearch)
@@ -236,6 +242,8 @@ public class MonsterAI : MonoBehaviour
     {
         if (swingtimer <= 0)
         {
+            myAnimator.SetLayerWeight(1, 1f);
+            myAnimator.SetBool("Attack", true);
             player.takeDamage(damage);
             swingtimer = swingTime;       
         }
