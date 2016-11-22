@@ -21,7 +21,7 @@ public class RadioScript : MonoBehaviour {
             textBox.text = "Press E to turn off";
         }*/
 
-        if (other.tag == "Player" && Input.GetKeyDown(KeyCode.E) && turnedOn)
+        if (other.tag == "Player" && (Input.GetKey(KeyCode.E) || InputManager.ActiveDevice.Action2) && turnedOn)
         {
             TurnOff();
             turnedOn = false;
