@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-
+using InControl;
 
 
 public class DoorOpenTextDisplay : MonoBehaviour
@@ -13,6 +13,7 @@ public class DoorOpenTextDisplay : MonoBehaviour
     AudioSource doorOpenSound;
     public Item requiredItem;
     public AudioSource doorLockedSound;
+    InputDevice device;
 
 	// Use this for initialization
 	void Start ()
@@ -23,13 +24,14 @@ public class DoorOpenTextDisplay : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
-        
-        if (other.tag == "Player" && Input.GetKey(KeyCode.E) && doorOpened == false && other.GetComponent<CustomFirstPersonController>().inventory.Contains(requiredItem))
+        device = InputManager.ActiveDevice;
+
+        if (other.tag == "Player" && (Input.GetKey(KeyCode.E) || device.Action2) && doorOpened == false && other.GetComponent<CustomFirstPersonController>().inventory.Contains(requiredItem))
         {
             doorOpened = true;            
             Open();
         }
-        else if (other.tag == "Player" && Input.GetKey(KeyCode.E) && doorOpened == false)
+        else if (other.tag == "Player" && (Input.GetKey(KeyCode.E) || device.Action2) && doorOpened == false)
         {
             textBox.text = "It's locked";
             doorLockedSound.Play();

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using InControl;
 
 public class ItemDescription : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class ItemDescription : MonoBehaviour
 
     private bool textOnScreen = false;
 
-    
+    InputDevice device;
 
 	// Use this for initialization
 	void Start ()
@@ -35,7 +36,9 @@ public class ItemDescription : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Player" && Input.GetKeyDown(KeyCode.E))
+        device = InputManager.ActiveDevice;
+
+        if (other.tag == "Player" && (Input.GetKey(KeyCode.E) || device.Action2))
         {
             textOutput.text = description;
 
