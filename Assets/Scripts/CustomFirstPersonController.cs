@@ -78,7 +78,7 @@ public class CustomFirstPersonController : MonoBehaviour
     [HideInInspector]
     public bool isPaused = false;
 
-    Canvas pauseMenu;
+    GameObject pauseMenu;
 
     private InputDevice device;
 
@@ -99,9 +99,11 @@ public class CustomFirstPersonController : MonoBehaviour
         lookAt.initialise(FPCamera);
         audioManager.initialise(controller, GetComponent<AudioSource>(), runSpeed);
 
-        pauseMenu = GameObject.FindGameObjectWithTag("PauseMenu").GetComponentInChildren<Canvas>();
+        pauseMenu = GameObject.FindGameObjectWithTag("PauseMenu");
 
-        pauseMenu.enabled = false;
+        pauseMenu.GetComponent<Canvas>().enabled = true;
+
+        pauseMenu.SetActive(false);
 
         textOutput = GameObject.FindGameObjectWithTag("CentreTextDisplay").GetComponent<Text>();
 
@@ -327,7 +329,7 @@ public class CustomFirstPersonController : MonoBehaviour
         isPaused = true;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        pauseMenu.enabled = true;
+        pauseMenu.SetActive(true);
         Time.timeScale = 0;
     }
     
@@ -338,7 +340,7 @@ public class CustomFirstPersonController : MonoBehaviour
         Time.timeScale = 1;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        pauseMenu.enabled = false;        
+        pauseMenu.SetActive(false);     
     }
 
     IEnumerator reloadLevel()
