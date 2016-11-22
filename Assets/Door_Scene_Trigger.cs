@@ -1,20 +1,26 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using InControl;
 
 public class Door_Scene_Trigger : MonoBehaviour {
 
 	public Text doorText;
 
+    InputDevice device;
+
 	// Use this for initialization
-	void Start () {
-	
+	void Start ()
+    {
+        
 	}
 
 	void OnTriggerStay (Collider other)
 	{
+        device = InputManager.ActiveDevice;
+
 		//Debug.Log ("triggered");
-		if (other.tag == "Player" && Input.GetKeyDown(KeyCode.E))
+		if (other.tag == "Player" && (Input.GetKeyDown(KeyCode.E)|| device.Action2))
 			{
 			//Debug.Log ("loading");
 				Application.LoadLevel("02_Manor");
