@@ -187,10 +187,10 @@ public class CustomFirstPersonController : MonoBehaviour
             wasJumping = true;
         }
 
-        if (Input.GetMouseButtonDown(1))
+        /*if (Input.GetMouseButtonDown(1))
         {
             takeDamage(9);
-        }
+        }*/
 
         if(currentHealth < maxHealth)
         {
