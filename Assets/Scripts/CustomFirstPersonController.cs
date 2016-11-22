@@ -75,7 +75,8 @@ public class CustomFirstPersonController : MonoBehaviour
 
     private float fallDistance = 0;
 
-    private bool isPaused = false;
+    [HideInInspector]
+    public bool isPaused = false;
 
     Canvas pauseMenu;
 
@@ -100,19 +101,24 @@ public class CustomFirstPersonController : MonoBehaviour
 
         pauseMenu = GameObject.FindGameObjectWithTag("PauseMenu").GetComponentInChildren<Canvas>();
 
-        Debug.Log(GameObject.FindGameObjectWithTag("PauseMenu").name);
         pauseMenu.enabled = false;
 
         textOutput = GameObject.FindGameObjectWithTag("CentreTextDisplay").GetComponent<Text>();
 
         bloodSplat.startUp((GameObject.FindGameObjectWithTag("BloodUI").GetComponent<UnityEngine.UI.Image>()));
+
+        Unpause();
     }
+
 	
 	// Update is called once per frame
 	void Update ()
     {
         device = InputManager.ActiveDevice;
 
+        if(!isPaused)
+            Time.timeScale = 1;
+            
         if (!isPaused && !reloadingLevel)
             mouseLook.LookRotation(transform, FPCamera.transform);
 
@@ -293,6 +299,8 @@ public class CustomFirstPersonController : MonoBehaviour
 
         // plays different sound according to damage taken in regards to % of max health
         audioManager.playHurtAudio(damage / maxHealth);
+
+        FindObjectOfType<EndCredit>().playCredits();
     }
 
     IEnumerator crouchTransition ()
@@ -361,6 +369,8 @@ public class CustomFirstPersonController : MonoBehaviour
 
     public void MainMenu()
     {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
         SceneManager.LoadScene("UI Splash");
     }
 }
