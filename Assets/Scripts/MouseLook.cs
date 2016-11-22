@@ -34,8 +34,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
             // Edited MouseLook to support gamepad input
             InputDevice device = InputManager.ActiveDevice;
 
-            float horizontal = CrossPlatformInputManager.GetAxis("Mouse X");
-            float vertical = CrossPlatformInputManager.GetAxis("Mouse Y");
+            float horizontal = CrossPlatformInputManager.GetAxis("Mouse X") * 4;
+            float vertical = CrossPlatformInputManager.GetAxis("Mouse Y") * 4;
 
             if (device != null)
             {
