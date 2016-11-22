@@ -20,8 +20,8 @@ public class EndCredit : MonoBehaviour
     {
         if (animator.GetBool("Play Credits") && animator.GetCurrentAnimatorStateInfo(0).IsName("Finished"))
         {
-            Debug.Log("Finished playing");
             text.enabled = false;
+            FindObjectOfType<CustomFirstPersonController>().MainMenu();
         }
 	}
 
