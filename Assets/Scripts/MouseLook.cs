@@ -34,8 +34,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
             // Edited MouseLook to support gamepad input
             InputDevice device = InputManager.ActiveDevice;
 
-            float horizontal = CrossPlatformInputManager.GetAxis("Mouse X") * 4;
-            float vertical = CrossPlatformInputManager.GetAxis("Mouse Y") * 4;
+            float horizontal = CrossPlatformInputManager.GetAxis("Mouse X");
+            float vertical = CrossPlatformInputManager.GetAxis("Mouse Y");
 
             if (device != null)
             {
@@ -45,6 +45,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             float yRot = horizontal * XSensitivity;
             float xRot = vertical * YSensitivity;
+
+            #if UNITY_PS4
+            yRot /= 4;
+            xRot /= 4;
+            #endif
 
             m_CharacterTargetRot *= Quaternion.Euler (0f, yRot, 0f);
             m_CameraTargetRot *= Quaternion.Euler (-xRot, 0f, 0f);

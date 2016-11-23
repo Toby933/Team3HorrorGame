@@ -5,7 +5,7 @@ using System;
 public class LightController : MonoBehaviour {
 
     public FlickerSettings flickerSettings;
-    private Light lights;
+    public Light lights;
     public AudioClip[] buzz;
     [Tooltip("Whether light will turn on")]
     public bool turnsOn = true;
@@ -23,22 +23,30 @@ public class LightController : MonoBehaviour {
 
 
     // Use this for initialization
-    void Start () {
-        lights = GetComponentInChildren<Light>();
-        audioSource = GetComponent<AudioSource>();
-        if (lights.isActiveAndEnabled)
+    void Start ()
+    {
+        try
         {
-            isOn = true;
-            Debug.Log("ON");
+            lights = GetComponentInChildren<Light>();
+            audioSource = GetComponent<AudioSource>();
+            if (lights.isActiveAndEnabled)
+            {
+                isOn = true;
+                Debug.Log("ON");
+            }
+            lights.intensity = brightness;
+            range = lights.range;
+            baseBulbColor = glowyRenderer.material.color;
+            if (lights.isActiveAndEnabled != true)
+            {
+                isOn = false;
+                glowyRenderer.material.color = (baseBulbColor * 0);
+            }
         }
-        lights.intensity = brightness;
-        range = lights.range;
-		baseBulbColor = glowyRenderer.material.color;
-		if (lights.isActiveAndEnabled != true)
-		{
-			isOn = false;
-			glowyRenderer.material.color = (baseBulbColor * 0);
-		}
+        catch
+        {
+            Debug.Log("no Lights");
+        }       
 
     }
 

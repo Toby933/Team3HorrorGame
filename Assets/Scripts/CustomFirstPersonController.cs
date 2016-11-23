@@ -301,8 +301,6 @@ public class CustomFirstPersonController : MonoBehaviour
 
         // plays different sound according to damage taken in regards to % of max health
         audioManager.playHurtAudio(damage / maxHealth);
-
-        FindObjectOfType<EndCredit>().playCredits();
     }
 
     IEnumerator crouchTransition ()
