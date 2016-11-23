@@ -17,7 +17,7 @@ public class DoorJammed : MonoBehaviour {
     void OnTriggerStay (Collider other)
     {
         device = InputManager.ActiveDevice;
-        if (other.tag == "Player" && (Input.GetKey(KeyCode.E) || device.Action2))
+        if (other.tag == "Player" && (Input.GetKeyDown(KeyCode.E) || device.Action2))
         {
             jammedText.text = "It's jammed";
             jammedAudio.Play();

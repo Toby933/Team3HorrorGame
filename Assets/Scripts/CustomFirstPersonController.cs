@@ -371,6 +371,7 @@ public class CustomFirstPersonController : MonoBehaviour
     {
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+        Debug.Log("loading mainmenu");
         SceneManager.LoadScene("UI Splash");
     }
 }

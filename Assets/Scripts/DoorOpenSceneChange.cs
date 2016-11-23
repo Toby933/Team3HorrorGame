@@ -26,7 +26,7 @@ public class DoorOpenSceneChange : MonoBehaviour {
     void OnTriggerStay (Collider other)
     {
         device = InputManager.ActiveDevice;
-        if (other.tag == "Player" && (Input.GetKey(KeyCode.E) || device.Action2))
+        if (other.tag == "Player" && (Input.GetKeyDown(KeyCode.E) || device.Action2))
         {
             SceneManager.LoadScene("02_Manor");
         }

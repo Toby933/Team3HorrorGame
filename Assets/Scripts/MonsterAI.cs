@@ -100,7 +100,7 @@ public class MonsterAI : MonoBehaviour
         // Converting FOV from deg to rad
         FOV /= 2; // needs to be halved due to how the angle will be calculated
         FOV = FOV / 180 * Mathf.PI; // formula for rad to deg conversion
-        stoppingDistance = (agent.radius + targetCon.radius) * 2 + .5f;
+        stoppingDistance = (agent.radius + targetCon.radius) + .5f;
         agent.speed = patrolSpeed;
 
 

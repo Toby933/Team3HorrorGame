@@ -20,12 +20,12 @@ public class DescriptionText : MonoBehaviour {
     {
         device = InputManager.ActiveDevice;
         if (keyPress) { 
-        if (other.tag == "Player" && (Input.GetKey(KeyCode.E) || device.Action2) && !textOnScreen)
+        if (other.tag == "Player" && (Input.GetKeyDown(KeyCode.E) || device.Action2) && !textOnScreen)
         {
             descriptionText.text = textOutput;
             textOnScreen = true;
         }
-        else if (other.tag == "Player" && (Input.GetKey(KeyCode.E) || device.Action2) && textOnScreen == true)
+        else if (other.tag == "Player" && (Input.GetKeyDown(KeyCode.E) || device.Action2) && textOnScreen == true)
         {
             descriptionText.text = "";
             textOnScreen = false;

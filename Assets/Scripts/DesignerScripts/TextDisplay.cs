@@ -18,7 +18,7 @@ public class DooorOpenTextDisplay : MonoBehaviour {
 
     void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Player" && (Input.GetKey(KeyCode.E) || InputManager.ActiveDevice.Action2))
+        if (other.tag == "Player" && (Input.GetKeyDown(KeyCode.E) || InputManager.ActiveDevice.Action2))
         {
             doorOpened = true;
             textBox.text = "";

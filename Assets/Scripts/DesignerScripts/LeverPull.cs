@@ -28,7 +28,7 @@ public class LeverPull : MonoBehaviour {
             textBox.text = "Press E to activate";
         }
 
-        if (other.tag == "Player" && (Input.GetKey(KeyCode.E) || device.Action2) && !pulled)
+        if (other.tag == "Player" && (Input.GetKeyDown(KeyCode.E) || device.Action2) && !pulled)
         {
             TurnOn();
             pulled = true;

@@ -30,7 +30,7 @@ public class UI_Documents : MonoBehaviour {
     {
         device = InputManager.ActiveDevice;
 
-        if (other.tag == "Player" && (Input.GetKey(KeyCode.E) || device.Action2) && !documentOnScreen)
+        if (other.tag == "Player" && (Input.GetKeyDown(KeyCode.E) || device.Action2) && !documentOnScreen)
         {
             document.SetActive(true);
             documentOnScreen = true;
@@ -38,7 +38,7 @@ public class UI_Documents : MonoBehaviour {
             uiTextBottom.text = "Press 'E' to close document";
             pagePickUp.Play();
         }
-        else if (documentOnScreen == true && (Input.GetKey(KeyCode.E) || device.Action2) && other.tag == "Player")
+        else if (documentOnScreen == true && (Input.GetKeyDown(KeyCode.E) || device.Action2) && other.tag == "Player")
         {
             document.SetActive(false);
             documentOnScreen = false;

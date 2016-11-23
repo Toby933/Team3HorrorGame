@@ -26,12 +26,12 @@ public class DoorOpenTextDisplay : MonoBehaviour
     {
         device = InputManager.ActiveDevice;
 
-        if (other.tag == "Player" && (Input.GetKey(KeyCode.E) || device.Action2) && doorOpened == false && other.GetComponent<CustomFirstPersonController>().inventory.Contains(requiredItem))
+        if (other.tag == "Player" && (Input.GetKeyDown(KeyCode.E) || device.Action2) && doorOpened == false && other.GetComponent<CustomFirstPersonController>().inventory.Contains(requiredItem))
         {
             doorOpened = true;            
             Open();
         }
-        else if (other.tag == "Player" && (Input.GetKey(KeyCode.E) || device.Action2) && doorOpened == false)
+        else if (other.tag == "Player" && (Input.GetKeyDown(KeyCode.E) || device.Action2) && doorOpened == false)
         {
             textBox.text = "It's locked";
             doorLockedSound.Play();
