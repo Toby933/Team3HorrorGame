@@ -46,6 +46,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
             float yRot = horizontal * XSensitivity;
             float xRot = vertical * YSensitivity;
 
+            #if UNITY_PS4
+            yRot /= 4;
+            xRot /= 4;
+            #endif
+
             m_CharacterTargetRot *= Quaternion.Euler (0f, yRot, 0f);
             m_CameraTargetRot *= Quaternion.Euler (-xRot, 0f, 0f);
 

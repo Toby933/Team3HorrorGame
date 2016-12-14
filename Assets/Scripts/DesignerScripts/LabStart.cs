@@ -5,9 +5,11 @@ public class LabStart : MonoBehaviour {
 
     private GameObject Radio;
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
         Radio = GameObject.Find("RadioAudio");
-        Radio.SendMessage("FindObjects", SendMessageOptions.DontRequireReceiver);
+        //Radio.SendMessage("FindObjects", SendMessageOptions.DontRequireReceiver);
+        Debug.Log(name);
     }
 	
 	// Update is called once per frame

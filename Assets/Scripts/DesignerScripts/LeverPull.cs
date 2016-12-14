@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using InControl;
 
 
 public class LeverPull : MonoBehaviour {
@@ -11,6 +12,8 @@ public class LeverPull : MonoBehaviour {
     private AudioSource sound;
     public Text textBox;
     private bool pulled = false;
+    InputDevice device;
+
     void Start()
     {
         sound = GetComponent<AudioSource>();
@@ -19,12 +22,13 @@ public class LeverPull : MonoBehaviour {
 	}
 	void OnTriggerStay(Collider other)
     {
+        device = InputManager.ActiveDevice;
         if (other.tag == "Player" && !pulled)
         {
             textBox.text = "Press E to activate";
         }
 
-        if (other.tag == "Player" && Input.GetKeyDown(KeyCode.E) && !pulled)
+        if (other.tag == "Player" && (Input.GetKeyDown(KeyCode.E) || device.Action2) && !pulled)
         {
             TurnOn();
             pulled = true;

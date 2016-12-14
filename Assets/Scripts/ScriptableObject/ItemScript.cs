@@ -41,12 +41,7 @@ public class ItemScript : MonoBehaviour
             itemObject = transform.parent.gameObject;
         }
 
-        if (item.textOutput == null && action == Action.DisplayText)
-        {
-            item.textOutput = GameObject.FindGameObjectWithTag("CentreTextDisplay").GetComponent<Text>();
-        }
-
-        
+        item.textOutput = GameObject.FindGameObjectWithTag("CentreTextDisplay").GetComponent<Text>();
 
         itemObject.tag = "Item";
 
@@ -118,15 +113,14 @@ public class ItemScript : MonoBehaviour
 
     void setText(string text)
     {
-        item.textOutput.text = text;
+        
     }
 
     IEnumerator pickUpText()
     {
         setText(System.String.Format("{0} obtained", item.itemName));
         Debug.Log(item.textOutput);
-        yield return new WaitForSeconds(displayTime);
-        Debug.Log("pickUpText end");
-        setText("");
+        yield return new WaitForSeconds(2);
+        item.textOutput.text = "";
     }
 }

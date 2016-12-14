@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using InControl;
 
 public class RadioScript : MonoBehaviour {
     private bool turnedOn = true;
@@ -9,29 +10,31 @@ public class RadioScript : MonoBehaviour {
     private Text textBox;
     private GameObject textObject;
     public float grumpy=5;
+    public AudioSource click;
+    private bool isOn;
 
 
     void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Player" && turnedOn)
+        /*if (other.tag == "Player" && turnedOn)
         {
             textBox.text = "Press E to turn off";
-        }
+        }*/
 
-        if (other.tag == "Player" && Input.GetKeyDown(KeyCode.E) && turnedOn)
+        if (other.tag == "Player" && (Input.GetKeyDown(KeyCode.E) || InputManager.ActiveDevice.Action2) && turnedOn)
         {
             TurnOff();
             turnedOn = false;
             textBox.text = "";
         }
     }
-    void OnTriggerExit(Collider other)
+    /*void OnTriggerExit(Collider other)
     {
         if (other.tag == "Player")
         {
             textBox.text = "";
         }
-    }
+    }*/
 
     void Awake()
     {
@@ -48,18 +51,22 @@ public class RadioScript : MonoBehaviour {
 	if (!turnedOn)
         {
             timer += Time.deltaTime;
-        }
-    if (timer > grumpy)
+        
+        if (timer > grumpy)
         {
+            turnedOn = true;
             RadioOn();
+            click.Play();
         }
-	}
+        }
+    }
     public void TurnOn()
     {
         transform.position = new Vector3(16.25f, 1.166f, 2.232f);
     }
     public void TurnOff()
     {
+        click.Play();
         gameObject.GetComponent<AudioSource>().volume = 0;
         timer = 0;
         if (grumpy > 0.5f)
@@ -76,6 +83,5 @@ public class RadioScript : MonoBehaviour {
     void RadioOn()
     {
         gameObject.GetComponent<AudioSource>().volume = 1;
-        turnedOn = true;
     }
 }

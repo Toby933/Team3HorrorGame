@@ -20,7 +20,7 @@ public class MonsterAI : MonoBehaviour
     [Tooltip("Enable/Disable monster functionality")]
     public bool isDiabled = false;
 
-    private float timer = 30;
+    public float timer = 30;
 
     private bool hunting = false;
 
@@ -71,6 +71,8 @@ public class MonsterAI : MonoBehaviour
 
     private bool isStopToSearch = false;
 
+    private Animator myAnimator;
+
     // Navmesh Ref
     private NavMeshAgent agent;
     // Used to raycast from head location
@@ -85,6 +87,11 @@ public class MonsterAI : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
+        if(target == null)
+        {
+            target = GameObject.FindGameObjectWithTag("Player").transform;
+        }
+        myAnimator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         audioSource = GetComponent<AudioSource>();
         head = GetComponentInChildren<SphereCollider>();
@@ -93,14 +100,17 @@ public class MonsterAI : MonoBehaviour
         // Converting FOV from deg to rad
         FOV /= 2; // needs to be halved due to how the angle will be calculated
         FOV = FOV / 180 * Mathf.PI; // formula for rad to deg conversion
-        stoppingDistance = (agent.radius + targetCon.radius) * 2 + .5f;
+        stoppingDistance = (agent.radius + targetCon.radius) + .5f;
         agent.speed = patrolSpeed;
 
+
 	}
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update()
     {
+        myAnimator.SetFloat("VSpeed" ,Mathf.Abs(Mathf.Clamp01(agent.velocity.magnitude)));// Blends between monster move and monster idle in theory
+
         if (!isDiabled)
         {
             if (usePatrol && !agent.hasPath && !isStopToSearch)
@@ -232,6 +242,8 @@ public class MonsterAI : MonoBehaviour
     {
         if (swingtimer <= 0)
         {
+            myAnimator.SetLayerWeight(1, 1f);
+            myAnimator.SetBool("Attack", true);
             player.takeDamage(damage);
             swingtimer = swingTime;       
         }
@@ -286,6 +298,10 @@ public class MonsterAI : MonoBehaviour
     }
 
     void TurnOn()
+    {
+        Invoke("StartHunting", 5);
+    }
+    void StartHunting()
     {
         if (hunting != true)
         {

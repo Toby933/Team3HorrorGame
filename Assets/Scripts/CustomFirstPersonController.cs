@@ -4,6 +4,7 @@ using UnityStandardAssets.Characters.FirstPerson;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using InControl;
+using UnityEngine.UI;
 
 
 public class CustomFirstPersonController : MonoBehaviour
@@ -74,11 +75,16 @@ public class CustomFirstPersonController : MonoBehaviour
 
     private float fallDistance = 0;
 
-    private bool isPaused = false;
+    [HideInInspector]
+    public bool isPaused = false;
 
-    private Canvas pauseMenu;
+    GameObject pauseMenu;
 
     private InputDevice device;
+
+    private bool reloadingLevel = false;
+
+    private Text textOutput;
 
     // Use this for initialization
     void Start ()
@@ -93,19 +99,29 @@ public class CustomFirstPersonController : MonoBehaviour
         lookAt.initialise(FPCamera);
         audioManager.initialise(controller, GetComponent<AudioSource>(), runSpeed);
 
-        pauseMenu = GameObject.FindGameObjectWithTag("PauseMenu").GetComponent<Canvas>();
+        pauseMenu = GameObject.FindGameObjectWithTag("PauseMenu");
 
-        pauseMenu.enabled = false;
+        pauseMenu.GetComponent<Canvas>().enabled = true;
+
+        pauseMenu.SetActive(false);
+
+        textOutput = GameObject.FindGameObjectWithTag("CentreTextDisplay").GetComponent<Text>();
 
         bloodSplat.startUp((GameObject.FindGameObjectWithTag("BloodUI").GetComponent<UnityEngine.UI.Image>()));
+
+        Unpause();
     }
+
 	
 	// Update is called once per frame
 	void Update ()
     {
         device = InputManager.ActiveDevice;
 
-        if (!isPaused)
+        if(!isPaused)
+            Time.timeScale = 1;
+            
+        if (!isPaused && !reloadingLevel)
             mouseLook.LookRotation(transform, FPCamera.transform);
 
         if (!isPaused && (Input.GetKeyDown(KeyCode.Escape)||device.MenuWasPressed))
@@ -171,12 +187,10 @@ public class CustomFirstPersonController : MonoBehaviour
             wasJumping = true;
         }
 
-        //Debug.Log(moveDirection.y);
-
-        if (Input.GetMouseButtonDown(1))
+        /*if (Input.GetMouseButtonDown(1))
         {
             takeDamage(9);
-        }
+        }*/
 
         if(currentHealth < maxHealth)
         {
@@ -193,11 +207,17 @@ public class CustomFirstPersonController : MonoBehaviour
         if (audioManager.stepPauseTimer > 0)
             audioManager.stepPauseTimer -= Time.deltaTime;
 
-        if (currentHealth == 0)
-        {            
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        if (currentHealth == 0 && !reloadingLevel)
+        {
+
+                StartCoroutine(reloadLevel());
         }
-	}
+
+        if (exhaustedTimer > 0)
+            audioManager.playExhausted();
+        else if (currentStamina >= maxStamina)
+            audioManager.stopExhausted();
+	}    
 
     // Physics Updates
     void FixedUpdate()
@@ -261,9 +281,9 @@ public class CustomFirstPersonController : MonoBehaviour
                 }
             }
 
-            if (isCrouching && moveDirection.magnitude > .3f)
+            if (isCrouching && moveDirection.magnitude > .3f && !reloadingLevel)
                 headBob.BobHead(controller.velocity.magnitude * 2f, this);
-            else if (moveDirection.magnitude > .3f)
+            else if (moveDirection.magnitude > .3f && !reloadingLevel)
                 headBob.BobHead(controller.velocity.magnitude, this);
         }
 
@@ -271,7 +291,7 @@ public class CustomFirstPersonController : MonoBehaviour
             moveDirection.y -= gravity * Time.deltaTime;
 
 
-        if (moveDirection.magnitude > 0.3f || wasCrouching)
+        if ((moveDirection.magnitude > 0.3f || wasCrouching) && !reloadingLevel)
             controller.Move(moveDirection * Time.deltaTime);            
     }
 
@@ -307,7 +327,7 @@ public class CustomFirstPersonController : MonoBehaviour
         isPaused = true;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        pauseMenu.enabled = true;
+        pauseMenu.SetActive(true);
         Time.timeScale = 0;
     }
     
@@ -318,7 +338,40 @@ public class CustomFirstPersonController : MonoBehaviour
         Time.timeScale = 1;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        pauseMenu.enabled = false;
+        pauseMenu.SetActive(false);     
+    }
+
+    IEnumerator reloadLevel()
+    {
+        reloadingLevel = true;
+        textOutput.fontSize = 150;
+        textOutput.color = Color.red;
+        textOutput.text = "You Died";
+        if (SceneManager.GetActiveScene().name == "04_Lab")
+        {
+            FindObjectOfType<EndCredit>().playCredits();
+        }
+        else
+        {
+            yield return new WaitForSeconds(3);
+            textOutput.text = "";
+            reloadingLevel = false;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
         
+        
+    }
+
+    public void Exit()
+    {
+        Application.Quit();
+    }
+
+    public void MainMenu()
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        Debug.Log("loading mainmenu");
+        SceneManager.LoadScene("UI Splash");
     }
 }
